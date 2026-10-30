@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" width="100%" height="100%">
+  <g transform="translate(110, 10)">
+    <rect width="100" height="100" rx="8" fill="#78B833"/>
+    <text x="12" y="30" font-family="'Montserrat', 'Arial Black', sans-serif" font-size="9" font-weight="900" fill="#ffffff" letter-spacing="0.5">VANCOUVER</text>
+    <text x="12" y="44" font-family="'Montserrat', 'Arial Black', sans-serif" font-size="9" font-weight="900" fill="#ffffff" letter-spacing="0.5">COMMUNITY</text>
+    <text x="12" y="58" font-family="'Montserrat', 'Arial Black', sans-serif" font-size="9" font-weight="900" fill="#ffffff" letter-spacing="0.5">COLLEGE</text>
+    <path d="M 0,100 Q 40,65 100,85 L 100,100 Z" fill="#64748b"/>
+  </g>
+</svg>

@@ -1,0 +1,1083 @@
+{{template "header" .}}
+
+<!-- Scoped Portfolio Page Styles matching reference screenshot -->
+<style>
+/* Nav item highlight */
+.nav-item.active > a[href*="portfolio"],
+.nav-item > a[href*="portfolio"].current {
+    background: #dff0fd !important;
+    color: #0076de !important;
+    font-weight: 600 !important;
+    border-radius: 6px !important;
+    padding: 8px 18px !important;
+}
+
+/* 1. HERO SECTION */
+.portfolio-hero-exact {
+    position: relative;
+    background: #071933 url('/static/images/banner-portfolio.jpg') center center / cover no-repeat;
+    padding: 70px 0 75px;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+.portfolio-hero-exact::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(7, 25, 51, 0.78) 0%, rgba(7, 25, 51, 0.88) 100%);
+    z-index: 1;
+}
+
+.portfolio-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+}
+
+.portfolio-badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0, 180, 255, 0.08);
+    border: 1px solid rgba(56, 189, 248, 0.45);
+    color: #38bdf8;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+}
+
+.portfolio-breadcrumb {
+    color: #94a3b8;
+    font-size: 13.5px;
+    margin-bottom: 14px;
+}
+
+.portfolio-breadcrumb a {
+    color: #cbd5e1;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.portfolio-breadcrumb a:hover {
+    color: #38bdf8;
+}
+
+.portfolio-hero-title {
+    font-family: var(--font-heading, 'Montserrat', sans-serif);
+    font-size: 2.85rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.2;
+    margin: 0 0 16px 0;
+    letter-spacing: -0.5px;
+}
+
+.portfolio-hero-desc {
+    color: #cbd5e1;
+    font-size: 15px;
+    line-height: 1.65;
+    margin: 0;
+    max-width: 660px;
+}
+
+/* 2. STATS STRIP */
+.portfolio-stats-section {
+    padding: 35px 0 20px;
+    background: #f8fafc;
+}
+
+.portfolio-stats-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 32px 24px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.stat-item {
+    text-align: center;
+    position: relative;
+}
+
+.stat-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 15%;
+    height: 70%;
+    width: 1px;
+    background: #e2e8f0;
+}
+
+.stat-number {
+    font-family: var(--font-heading, 'Montserrat', sans-serif);
+    font-size: 2.35rem;
+    font-weight: 800;
+    color: #0076de;
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.stat-label {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* 3. CASE STUDIES 4-COL GRID */
+.portfolio-grid-section {
+    padding: 30px 0 65px;
+    background: #f8fafc;
+}
+
+.portfolio-grid-4col {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+}
+
+.portfolio-exact-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 22px 20px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+.portfolio-exact-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(0, 118, 222, 0.12);
+    border-color: #cbd5e1;
+}
+
+.card-logo-box {
+    background: #ffffff;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    margin-bottom: 18px;
+    border-radius: 8px;
+    border: 1px solid #f1f5f9;
+}
+
+.card-logo-box img {
+    max-height: 105px;
+    max-width: 90%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.card-meta-category {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #0076de;
+    margin-bottom: 8px;
+}
+
+.card-project-title {
+    font-family: var(--font-heading, 'Montserrat', sans-serif);
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.45;
+    margin: 0;
+}
+
+/* 4. BOTTOM CTA BANNER */
+.portfolio-cta-section {
+    padding: 0 0 75px;
+    background: #f8fafc;
+}
+
+.portfolio-exact-cta {
+    background: #0c2340;
+    border-radius: 18px;
+    padding: 55px 40px;
+    text-align: center;
+    color: #ffffff;
+    box-shadow: 0 12px 35px rgba(7, 25, 51, 0.18);
+}
+
+.portfolio-exact-cta h2 {
+    font-family: var(--font-heading, 'Montserrat', sans-serif);
+    font-size: 2.15rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 12px 0;
+}
+
+.portfolio-exact-cta p {
+    color: #94a3b8;
+    font-size: 14.5px;
+    max-width: 680px;
+    margin: 0 auto 30px;
+    line-height: 1.6;
+}
+
+.portfolio-cta-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.btn-cta-blue {
+    background: #0076de;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 12.5px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 13px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(0, 118, 222, 0.35);
+    transition: all 0.2s ease;
+}
+
+.btn-cta-blue:hover {
+    background: #0060b5;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.btn-cta-cyan {
+    background: #0284c7;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 12.5px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 13px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+    transition: all 0.2s ease;
+}
+
+.btn-cta-cyan:hover {
+    background: #0369a1;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+/* 5. CASE STUDY DETAIL MODAL */
+.cs-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(7, 25, 51, 0.75);
+    backdrop-filter: blur(6px);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.cs-modal-overlay.active {
+    display: flex;
+}
+
+.cs-modal-box {
+    background: #ffffff;
+    width: 94%;
+    max-width: 860px;
+    max-height: 88vh;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+.cs-modal-header {
+    background: #2c3e50;
+    color: #ffffff;
+    padding: 14px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+.cs-modal-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    overflow: hidden;
+}
+
+.cs-modal-grid-icon {
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #38bdf8;
+    font-size: 16px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.cs-modal-header-title {
+    font-family: var(--font-heading, 'Montserrat', sans-serif);
+    font-size: 15.5px;
+    font-weight: 700;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cs-modal-nav-btns {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.cs-nav-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.cs-nav-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.cs-modal-body {
+    overflow-y: auto;
+    flex: 1;
+    padding: 34px 38px 40px;
+}
+
+.cs-modal-top-row {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 32px;
+    margin-bottom: 28px;
+}
+
+.cs-logo-wrap {
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 24px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+}
+
+.cs-logo-wrap img {
+    max-width: 190px;
+    max-height: 95px;
+    object-fit: contain;
+}
+
+.cs-modal-body h2 {
+    font-family: var(--font-heading, 'Montserrat', sans-serif);
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 10px 0;
+}
+
+.cs-modal-body h3 {
+    font-family: var(--font-heading, 'Montserrat', sans-serif);
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 24px 0 10px 0;
+}
+
+.cs-modal-body p {
+    color: #475569;
+    font-size: 14.5px;
+    line-height: 1.7;
+    margin: 0 0 14px 0;
+}
+
+.cs-modal-body ul {
+    color: #475569;
+    font-size: 14.5px;
+    line-height: 1.8;
+    padding-left: 20px;
+    margin: 0 0 14px 0;
+}
+
+.cs-modal-body ul li {
+    margin-bottom: 4px;
+}
+
+.cs-modal-testimonial {
+    margin: 26px 0 0;
+    padding: 18px 22px;
+    border-left: 4px solid #0076de;
+    background: #f8fafc;
+    border-radius: 0 8px 8px 0;
+}
+
+.cs-modal-testimonial p {
+    font-style: italic;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.65;
+    margin: 0 0 6px 0;
+}
+
+.cs-modal-testimonial .cs-quote-author {
+    font-style: normal;
+    font-weight: 700;
+    color: #0f172a;
+    font-size: 13px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .portfolio-grid-4col {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .portfolio-stats-card {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    .stat-item:nth-child(2)::after {
+        display: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .portfolio-hero-title {
+        font-size: 2.15rem;
+    }
+    .portfolio-grid-4col {
+        grid-template-columns: 1fr;
+    }
+    .portfolio-stats-card {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .stat-item::after {
+        display: none !important;
+    }
+    .cs-modal-top-row {
+        grid-template-columns: 1fr;
+    }
+    .cs-modal-body {
+        padding: 22px 18px;
+    }
+}
+</style>
+
+<!-- 1. Hero Section -->
+<section class="portfolio-hero-exact">
+    <div class="container">
+        <div class="portfolio-hero-content">
+            <div class="portfolio-badge-pill">
+                <i class="fas fa-layer-group"></i> PROVEN CASE STUDIES
+            </div>
+            <div class="portfolio-breadcrumb">
+                <a href="/">Home</a> / Portfolio
+            </div>
+            <h1 class="portfolio-hero-title">Our Project Portfolio</h1>
+            <p class="portfolio-hero-desc">
+                Explore a selection of mission-critical applications, SharePoint intranets, and custom enterprise architectures built for Canadian leaders.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- 2. Metrics Strip -->
+<section class="portfolio-stats-section">
+    <div class="container">
+        <div class="portfolio-stats-card">
+            <div class="stat-item">
+                <div class="stat-number">200+</div>
+                <div class="stat-label">Delivered Projects</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">97%</div>
+                <div class="stat-label">On-Time Milestones</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">20+</div>
+                <div class="stat-label">Years Continuous Operation</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Canadian Data Security</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 3. Portfolio 4-Column Grid -->
+<section class="portfolio-grid-section">
+    <div class="container">
+        <div class="portfolio-grid-4col" id="portfolioCardsGrid">
+            
+            <!-- Card 1 -->
+            <div class="portfolio-exact-card" data-index="0">
+                <div class="card-logo-box">
+                    <img src="/static/images/portfolio/logos/logo-bc.svg" alt="Government of British Columbia">
+                </div>
+                <div class="card-meta-category">Public Sector</div>
+                <h3 class="card-project-title">The Ministry of Economic Development – BC Skills Connect Tracking & Invoicing System</h3>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="portfolio-exact-card" data-index="1">
+                <div class="card-logo-box">
+                    <img src="/static/images/portfolio/logos/logo-allteck.svg" alt="Allteck">
+                </div>
+                <div class="card-meta-category">Utilities & Infrastructure</div>
+                <h3 class="card-project-title">Allteck – Electronic Timesheet System (ETS) Business Analysis & Architecture</h3>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="portfolio-exact-card" data-index="2">
+                <div class="card-logo-box">
+                    <img src="/static/images/portfolio/logos/logo-port.svg" alt="Port of Vancouver">
+                </div>
+                <div class="card-meta-category">Logistics & Port Authority</div>
+                <h3 class="card-project-title">Vancouver Fraser Port Authority – Truck Licensing System (TLS) Review & Assessment</h3>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="portfolio-exact-card" data-index="3">
+                <div class="card-logo-box">
+                    <img src="/static/images/portfolio/logos/logo-health.svg" alt="Ministry of Health">
+                </div>
+                <div class="card-meta-category">Healthcare</div>
+                <h3 class="card-project-title">The Ministry of Health – Community Healthcare & Resource Directory (CHARD)</h3>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="portfolio-exact-card" data-index="4">
+                <div class="card-logo-box">
+                    <img src="/static/images/portfolio/logos/logo-carlson.svg" alt="Carlson Wagonlit Travel">
+                </div>
+                <div class="card-meta-category">Corporate Travel</div>
+                <h3 class="card-project-title">Carlson Wagonlit Travel – Bilingual Enterprise Team Mate Portal</h3>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="portfolio-exact-card" data-index="5">
+                <div class="card-logo-box">
+                    <img src="/static/images/portfolio/logos/logo-alberta.svg" alt="Alberta Innovates">
+                </div>
+                <div class="card-meta-category">Public Innovation</div>
+                <h3 class="card-project-title">Alberta Innovates – ADHERE Clinical & Research Platform</h3>
+            </div>
+
+            <!-- Card 7 -->
+            <div class="portfolio-exact-card" data-index="6">
+                <div class="card-logo-box">
+                    <img src="/static/images/portfolio/logos/logo-greenview.svg" alt="Municipal District of Greenview">
+                </div>
+                <div class="card-meta-category">SharePoint Intranet</div>
+                <h3 class="card-project-title">Municipal District of Greenview – Enterprise SharePoint Modernization</h3>
+            </div>
+
+            <!-- Card 8 -->
+            <div class="portfolio-exact-card" data-index="7">
+                <div class="card-logo-box">
+                    <img src="/static/images/portfolio/logos/logo-medinet.svg" alt="Medinet">
+                </div>
+                <div class="card-meta-category">Clinical Messaging</div>
+                <h3 class="card-project-title">Medinet – Secure Physician Encrypted Messaging Application</h3>
+            </div>
+
+            <!-- Card 9 -->
+            <div class="portfolio-exact-card" data-index="8">
+                <div class="card-logo-box">
+                    <img src="/static/images/portfolio/logos/logo-langara.svg" alt="Langara College">
+                </div>
+                <div class="card-meta-category">Higher Education</div>
+                <h3 class="card-project-title">Langara College – Enterprise Records & Document Management Solution</h3>
+            </div>
+
+            <!-- Card 10 -->
+            <div class="portfolio-exact-card" data-index="9">
+                <div class="card-logo-box">
+                    <img src="/static/images/portfolio/logos/logo-conair.svg" alt="Conair Aerial Firefighting">
+                </div>
+                <div class="card-meta-category">Aerospace & Defense</div>
+                <h3 class="card-project-title">Conair Aerospace – Aircraft Material Tracking & Inventory System</h3>
+            </div>
+
+            <!-- Card 11 -->
+            <div class="portfolio-exact-card" data-index="10">
+                <div class="card-logo-box">
+                    <img src="/static/images/portfolio/logos/logo-washington.svg" alt="The Washington Companies">
+                </div>
+                <div class="card-meta-category">Enterprise Migration</div>
+                <h3 class="card-project-title">Washington Companies – SharePoint Online Intranet Migration</h3>
+            </div>
+
+            <!-- Card 12 -->
+            <div class="portfolio-exact-card" data-index="11">
+                <div class="card-logo-box">
+                    <img src="/static/images/portfolio/logos/logo-vcc.svg" alt="Vancouver Community College">
+                </div>
+                <div class="card-meta-category">Legacy Modernization</div>
+                <h3 class="card-project-title">Vancouver Community College – ColdFusion to Modern Web Architecture</h3>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- 4. Bottom CTA Banner -->
+<section class="portfolio-cta-section">
+    <div class="container">
+        <div class="portfolio-exact-cta">
+            <h2>Have a Similar Project in Mind?</h2>
+            <p>Our Vancouver team is ready to discuss your architecture, provide technical references, and supply a detailed project plan.</p>
+            <div class="portfolio-cta-actions">
+                <a href="/contact-us" class="btn-cta-blue">Request Project Consultation</a>
+                <a href="/services" class="btn-cta-cyan">Browse Services</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 5. Case Study Detail Modal -->
+<div class="cs-modal-overlay" id="csModalOverlay">
+    <div class="cs-modal-box">
+        <div class="cs-modal-header">
+            <div class="cs-modal-header-left">
+                <div class="cs-modal-grid-icon" id="csModalClose" title="Close">
+                    <i class="fas fa-th"></i>
+                </div>
+                <div class="cs-modal-header-title" id="csModalHeaderTitle"></div>
+            </div>
+            <div class="cs-modal-nav-btns">
+                <button class="cs-nav-btn" id="csModalPrev" title="Previous Case Study">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="cs-nav-btn" id="csModalNext" title="Next Case Study">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+        <div class="cs-modal-body" id="csModalBody"></div>
+    </div>
+</div>
+
+<!-- Modal Logic & Data -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const caseStudies = [
+        {
+            headerTitle: 'BC Ministry of Economic Development – Skills Connect',
+            body: `
+                <div class="cs-modal-top-row">
+                    <div class="cs-logo-wrap"><img src="/static/images/portfolio/logos/logo-bc.svg" alt="Government of British Columbia"></div>
+                    <div>
+                        <h2>Background and History</h2>
+                        <p>The Ministry of Economic Development oversees provincial training grants and immigrant settlement assistance programs across British Columbia.</p>
+                    </div>
+                </div>
+                <h3>The Problem</h3>
+                <p>The ministry needed a custom tracking platform to manage provincial training grants, immigrant settlement assistance programs, and multi-ministry invoice verification processes.</p>
+                <h3>Their challenges were:</h3>
+                <ul>
+                    <li>Manual tracking of training program grants across multiple service providers</li>
+                    <li>No automated invoice verification between ministries</li>
+                    <li>Difficulty generating audit-ready reports for federal and provincial regulators</li>
+                    <li>Paper-based processes creating delays in settlement program delivery</li>
+                </ul>
+                <h3>Our Solution</h3>
+                <p>Spot Solutions delivered a comprehensive tracking and invoicing platform built on .NET Core with Azure Canada hosting. The system automates grant tracking, multi-ministry invoice verification, and generates real-time reports for program managers and auditors.</p>
+                <h3>The Impact</h3>
+                <p>The platform reduced invoice processing time by 75% and enabled real-time tracking of over 500 active training programs across the province. Audit preparation time was reduced from weeks to hours.</p>
+            `
+        },
+        {
+            headerTitle: 'Allteck – Electronic Timesheet System (ETS)',
+            body: `
+                <div class="cs-modal-top-row">
+                    <div class="cs-logo-wrap"><img src="/static/images/portfolio/logos/logo-allteck.svg" alt="Allteck Line Contractors"></div>
+                    <div>
+                        <h2>Background and History</h2>
+                        <p>Allteck is one of Western Canada's leading power line construction and maintenance contractors, providing services to major utilities including BC Hydro.</p>
+                    </div>
+                </div>
+                <h3>The Problem</h3>
+                <p>Allteck needed a mobile-friendly digital timesheet and equipment allocation engine that could calculate complex union rules and automate ERP payroll exports for field crews working in remote locations.</p>
+                <h3>Their challenges were:</h3>
+                <ul>
+                    <li>Paper-based timesheets causing payroll delays and errors</li>
+                    <li>Complex union pay rules requiring manual calculation</li>
+                    <li>Field crews in remote areas without reliable internet connectivity</li>
+                    <li>Equipment allocation tracking across multiple job sites</li>
+                </ul>
+                <h3>Our Solution</h3>
+                <p>Spot Solutions designed and built a mobile-first Electronic Timesheet System (ETS) with offline capability. The system handles complex union pay rule calculations, equipment tracking, and seamless ERP payroll integration. Crews can submit timesheets from the field with automatic sync when connectivity is restored.</p>
+                <h3>The Impact</h3>
+                <p>Payroll processing time was reduced by 60%, calculation errors dropped by 95%, and field supervisors now have real-time visibility into crew allocation and equipment utilization across all active job sites.</p>
+            `
+        },
+        {
+            headerTitle: 'Vancouver Fraser Port Authority – TLS Review',
+            body: `
+                <div class="cs-modal-top-row">
+                    <div class="cs-logo-wrap"><img src="/static/images/portfolio/logos/logo-port.svg" alt="Vancouver Fraser Port Authority"></div>
+                    <div>
+                        <h2>Background and History</h2>
+                        <p>The Vancouver Fraser Port Authority manages Canada's largest port, handling over 147 million tonnes of cargo annually with operations spanning 16,000 hectares.</p>
+                    </div>
+                </div>
+                <h3>The Problem</h3>
+                <p>The Port Authority required a comprehensive security review and architecture assessment of their mission-critical Truck Licensing System (TLS) that manages container terminal access and security credentials.</p>
+                <h3>Their challenges were:</h3>
+                <ul>
+                    <li>Aging legacy system controlling port access for thousands of commercial vehicles</li>
+                    <li>Security vulnerabilities identified in previous penetration testing</li>
+                    <li>Complex integration requirements with border security and customs systems</li>
+                    <li>24/7 operational requirements with zero tolerance for downtime</li>
+                </ul>
+                <h3>Our Solution</h3>
+                <p>Spot Solutions conducted a thorough architectural review and security audit of the TLS system. Our team provided a detailed remediation roadmap, recommended modernization strategies, and delivered an implementation plan for migrating critical components to a more resilient architecture.</p>
+                <h3>The Impact</h3>
+                <p>The security review identified and prioritized 23 critical improvements. The modernization roadmap provided a clear path to enhancing system resilience while maintaining uninterrupted port operations.</p>
+            `
+        },
+        {
+            headerTitle: 'Ministry of Health – CHARD Platform',
+            body: `
+                <div class="cs-modal-top-row">
+                    <div class="cs-logo-wrap"><img src="/static/images/portfolio/logos/logo-health.svg" alt="Ministry of Health"></div>
+                    <div>
+                        <h2>Background and History</h2>
+                        <p>The Ministry of Health is the provincial government body responsible for the delivery and administration of healthcare services across British Columbia.</p>
+                    </div>
+                </div>
+                <h3>The Problem</h3>
+                <p>Medical specialists and family physicians needed a unified, instant directory to access regional healthcare services, specialized clinics, and clinical scheduling protocols across BC.</p>
+                <h3>Their challenges were:</h3>
+                <ul>
+                    <li>Fragmented healthcare resource directories across different health authorities</li>
+                    <li>Lack of a centralized clinical scheduling protocol system</li>
+                    <li>No unified access point for physicians to locate specialist services</li>
+                    <li>Compliance requirements under FOIPPA for sensitive health data</li>
+                </ul>
+                <h3>Our Solution</h3>
+                <p>Spot Solutions architected and deployed CHARD (Community Healthcare & Resource Directory) to provide British Columbia medical specialists and family physicians with unified, instant directory access to regional healthcare services, specialized clinics, and clinical scheduling protocols. The solution was built on .NET Core with SharePoint Online integration and hosted on Azure Canada for full FOIPPA compliance.</p>
+                <h3>The Impact</h3>
+                <p>CHARD now serves over 45,000 medical providers across British Columbia with 99.98% system uptime. Physicians can instantly locate specialist services, view clinical pathways, and access scheduling protocols from a single unified platform.</p>
+                <div class="cs-modal-testimonial">
+                    <p>"The CHARD platform has transformed how our physicians access healthcare resources across the province. What used to take multiple phone calls now takes seconds."</p>
+                    <div class="cs-quote-author">– BC Health Authority Administrator</div>
+                </div>
+            `
+        },
+        {
+            headerTitle: 'Carlson Wagonlit Travel – Bilingual Portal',
+            body: `
+                <div class="cs-modal-top-row">
+                    <div class="cs-logo-wrap"><img src="/static/images/portfolio/logos/logo-carlson.svg" alt="Carlson Wagonlit Travel"></div>
+                    <div>
+                        <h2>Background and History</h2>
+                        <p>Carlson Wagonlit Travel (now CWT) is a global leader in business travel management, serving corporations and government agencies in over 145 countries.</p>
+                    </div>
+                </div>
+                <h3>The Problem</h3>
+                <p>CWT Canada needed a full-scale bilingual corporate intranet to unify their global corporate travel advisors with instant policy lookup, live reservation feeds, and compliance tools across English and French.</p>
+                <h3>Their challenges were:</h3>
+                <ul>
+                    <li>Disparate information systems across Canadian offices</li>
+                    <li>No centralized bilingual policy management system</li>
+                    <li>Travel advisors unable to quickly access client-specific travel policies</li>
+                    <li>Manual compliance reporting processes</li>
+                </ul>
+                <h3>Our Solution</h3>
+                <p>Spot Solutions built a comprehensive bilingual SharePoint Online portal featuring real-time reservation feeds, automated policy lookup by client, compliance dashboards, and integrated training materials. The portal supports seamless English-French language switching with full content parity.</p>
+                <h3>The Impact</h3>
+                <p>Travel advisor productivity increased by 40%, policy lookup time dropped from minutes to seconds, and compliance reporting became fully automated. The bilingual portal now serves over 800 travel advisors across Canada.</p>
+            `
+        },
+        {
+            headerTitle: 'Alberta Innovates – ADHERE Clinical Platform',
+            body: `
+                <div class="cs-modal-top-row">
+                    <div class="cs-logo-wrap"><img src="/static/images/portfolio/logos/logo-alberta.svg" alt="Alberta Innovates"></div>
+                    <div>
+                        <h2>Background and History</h2>
+                        <p>Alberta Innovates is the province's largest research and innovation agency, funding and supporting health research, technology commercialization, and clinical trials.</p>
+                    </div>
+                </div>
+                <h3>The Problem</h3>
+                <p>Alberta Innovates required a provincial health informatics repository enabling clinical researchers to securely analyze patient adherence patterns and clinical outcomes data.</p>
+                <h3>Their challenges were:</h3>
+                <ul>
+                    <li>Research data siloed across multiple health authorities and institutions</li>
+                    <li>No unified platform for analyzing patient adherence patterns</li>
+                    <li>Strict PIPEDA compliance requirements for sensitive health data</li>
+                    <li>Complex access control requirements for multi-institution research teams</li>
+                </ul>
+                <h3>Our Solution</h3>
+                <p>Spot Solutions built the ADHERE (Alberta Data for Health Evidence, Research and Evaluation) platform – a secure, PIPEDA-compliant clinical data repository with advanced analytics capabilities. The platform enables cross-institutional research while maintaining strict data governance and patient privacy controls.</p>
+                <h3>The Impact</h3>
+                <p>ADHERE now supports over 200 active research projects, enabling clinical researchers across Alberta to collaborate securely on patient adherence studies. Data access requests that previously took weeks are now processed in days.</p>
+            `
+        },
+        {
+            headerTitle: 'Municipal District of Greenview – SharePoint Rebuild',
+            body: `
+                <div class="cs-modal-top-row">
+                    <div class="cs-logo-wrap"><img src="/static/images/portfolio/logos/logo-greenview.svg" alt="Municipal District of Greenview"></div>
+                    <div>
+                        <h2>Background and History</h2>
+                        <p>The Municipal District of Greenview No. 16 is a municipal district in northwest Alberta.</p>
+                    </div>
+                </div>
+                <h3>The Problem</h3>
+                <p>MDG was looking to rebuild their existing SharePoint On-Premise environment in SharePoint Online in compliance with their governance, information management, and end-user experience requirements.</p>
+                <h3>Their challenges were:</h3>
+                <ul>
+                    <li>An outdated document control solution that was being used sporadically</li>
+                    <li>Poor collaboration on information sharing and business processes</li>
+                    <li>Multiple copies of documents were creating difficulty in identifying the active version</li>
+                </ul>
+                <h3>Our Solution</h3>
+                <p>Spot Solutions created an overall architecture and governance plan that included building a hub site and 22 department sites. We met with each department to gather their requirements and then built each site to their specifications, setting up any needed libraries, lists, metadata, and permissions. Training was provided to end users, champions, and administrators to enable them to maintain the sites going forward. All training materials were saved in a training site, enabling new staff to quickly get up to speed on how to use SharePoint.</p>
+                <h3>The Impact</h3>
+                <p>The new solution enables MDG to embrace SharePoint Online as an information management document repository, intranet, and collaboration tool, taking advantage of the numerous benefits offered by the cloud-based platform.</p>
+                <h3>Now they can:</h3>
+                <ul>
+                    <li>Use the department sites to increase collaboration and engagement amongst their staff</li>
+                    <li>Safely store their documents in their enterprise-wide document control solution</li>
+                    <li>Use version control to easily find the active version</li>
+                    <li>Migrate their existing content from file shares and use metadata to organize their data</li>
+                </ul>
+                <div class="cs-modal-testimonial">
+                    <p>I wanted to express my gratitude to your staff. Work life for me has been made easier and less stressful due in part to their attention, initiative, and friendly/happy attitude. Thanks again for the work you have done for Greenview!</p>
+                    <div class="cs-quote-author">– Peter Stoodley, Manager, Information Systems</div>
+                </div>
+                <div class="cs-modal-testimonial" style="margin-top: 12px;">
+                    <p>"Like any manager hiring contracting out services, I was sitting on the edge of my chair anticipating the worse. That never happened. I was so happy I had chosen Spot Solutions as our teammate for this experience. They came in on time, in scope and under budget. Champions involved graded the Project Manager, Ronessa, with 400 out of 10. Great Job!"</p>
+                    <div class="cs-quote-author">– Peter Stoodley, Manager, Information Systems</div>
+                </div>
+            `
+        },
+        {
+            headerTitle: 'Medinet – Secure Physician Messaging',
+            body: `
+                <div class="cs-modal-top-row">
+                    <div class="cs-logo-wrap"><img src="/static/images/portfolio/logos/logo-medinet.svg" alt="Medinet Health Solutions"></div>
+                    <div>
+                        <h2>Background and History</h2>
+                        <p>Medinet is a Canadian health technology company specializing in secure communications solutions for medical professionals and clinical institutions.</p>
+                    </div>
+                </div>
+                <h3>The Problem</h3>
+                <p>Medinet needed a secure, encrypted clinical communications system for delivering critical laboratory findings, urgent patient alerts, and inter-doctor consults while maintaining full audit compliance.</p>
+                <h3>Their challenges were:</h3>
+                <ul>
+                    <li>Physicians using unsecured consumer messaging apps for clinical communications</li>
+                    <li>No audit trail for critical patient-related communications</li>
+                    <li>Regulatory compliance requirements for end-to-end encryption</li>
+                    <li>Need for cross-platform support (iOS, Android, and desktop)</li>
+                </ul>
+                <h3>Our Solution</h3>
+                <p>Spot Solutions designed and built a fully encrypted clinical messaging application with end-to-end encryption, message expiry controls, read receipts, and comprehensive audit logging. The application supports iOS, Android, and web platforms with PIPEDA-compliant data handling.</p>
+                <h3>The Impact</h3>
+                <p>The platform is now used by hundreds of physicians across multiple health authorities, providing secure, auditable communications for critical clinical workflows. Response times for urgent consults improved by over 50%.</p>
+            `
+        },
+        {
+            headerTitle: 'Langara College – Enterprise Records Solution',
+            body: `
+                <div class="cs-modal-top-row">
+                    <div class="cs-logo-wrap"><img src="/static/images/portfolio/logos/logo-langara.svg" alt="Langara College"></div>
+                    <div>
+                        <h2>Background and History</h2>
+                        <p>Langara College is a leading public higher education institution in Vancouver, British Columbia, providing university-level education to over 23,000 students annually.</p>
+                    </div>
+                </div>
+                <h3>The Problem</h3>
+                <p>Langara College needed an enterprise document management and archiving solution to digitize official academic transcripts, registrar records, and governance policies in compliance with BC privacy law.</p>
+                <h3>Their challenges were:</h3>
+                <ul>
+                    <li>Physical paper records dispersed across campus departments</li>
+                    <li>Delayed response times for official transcript verifications</li>
+                    <li>FOIPPA compliance requirements for student records</li>
+                    <li>Complex retention schedules across diverse academic faculties</li>
+                </ul>
+                <h3>Our Solution</h3>
+                <p>Spot Solutions designed and deployed an enterprise SharePoint Online electronic document and records management system (EDRMS). The solution includes automated taxonomy tagging, custom retention schedule policies, and strict role-based access controls integrated with the college identity provider.</p>
+                <h3>The Impact</h3>
+                <p>The solution eliminated over 100 filing cabinets, cut document retrieval time from hours to seconds, and achieved 100% compliance with provincial freedom of information and privacy legislation.</p>
+            `
+        },
+        {
+            headerTitle: 'Conair Aerospace – Aircraft Material Tracking',
+            body: `
+                <div class="cs-modal-top-row">
+                    <div class="cs-logo-wrap"><img src="/static/images/portfolio/logos/logo-conair.svg" alt="Conair Aerial Firefighting"></div>
+                    <div>
+                        <h2>Background and History</h2>
+                        <p>Conair Group is a Canadian aerospace company specializing in aerial firefighting, providing critical air tanker services for wildfire suppression across North America.</p>
+                    </div>
+                </div>
+                <h3>The Problem</h3>
+                <p>Conair needed a mission-critical parts tracking and maintenance operations solution to support their international aerial firefighting fleet's flight readiness and regulatory compliance.</p>
+                <h3>Their challenges were:</h3>
+                <ul>
+                    <li>Complex aviation regulatory requirements for parts traceability</li>
+                    <li>Manual tracking of maintenance schedules across a diverse fleet</li>
+                    <li>Difficulty managing certified parts inventory across multiple bases</li>
+                    <li>Need for real-time fleet readiness reporting during fire season</li>
+                </ul>
+                <h3>Our Solution</h3>
+                <p>Spot Solutions delivered a comprehensive aircraft material tracking and maintenance management system. The solution provides full parts traceability, automated maintenance scheduling, certified inventory management, and real-time fleet readiness dashboards. All data is maintained in compliance with Transport Canada aviation regulations.</p>
+                <h3>The Impact</h3>
+                <p>Fleet readiness reporting time was reduced from hours to minutes, parts traceability became fully automated, and maintenance scheduling compliance improved to 100%. The system now supports Conair's entire aerial firefighting fleet operations.</p>
+            `
+        },
+        {
+            headerTitle: 'The Washington Companies – SharePoint Online Migration',
+            body: `
+                <div class="cs-modal-top-row">
+                    <div class="cs-logo-wrap"><img src="/static/images/portfolio/logos/logo-washington.svg" alt="The Washington Companies"></div>
+                    <div>
+                        <h2>Background and History</h2>
+                        <p>The Washington Companies is an international group of diversified enterprises spanning rail transportation, marine operations, aviation services, and environmental remediation.</p>
+                    </div>
+                </div>
+                <h3>The Problem</h3>
+                <p>The organization needed to migrate legacy on-premises SharePoint farms across multiple corporate divisions into a modern, unified SharePoint Online intranet architecture.</p>
+                <h3>Their challenges were:</h3>
+                <ul>
+                    <li>Terabytes of historical corporate data across fragmented on-premises servers</li>
+                    <li>Complex permission inheritance and custom workflows</li>
+                    <li>Disparate communication channels across corporate subsidiaries</li>
+                    <li>Downtime risks to ongoing heavy transportation logistics operations</li>
+                </ul>
+                <h3>Our Solution</h3>
+                <p>Spot Solutions executed an phased enterprise cloud migration strategy using Microsoft 365. We designed a modern hub-and-spoke intranet architecture, automated metadata taxonomy migration, and rebuilt legacy workflows with Power Automate.</p>
+                <h3>The Impact</h3>
+                <p>Zero downtime recorded during migration. Over 10,000 employees now collaborate on a secure, modern intranet with consolidated enterprise search and unified security governance.</p>
+            `
+        },
+        {
+            headerTitle: 'Vancouver Community College – Legacy Modernization',
+            body: `
+                <div class="cs-modal-top-row">
+                    <div class="cs-logo-wrap"><img src="/static/images/portfolio/logos/logo-vcc.svg" alt="Vancouver Community College"></div>
+                    <div>
+                        <h2>Background and History</h2>
+                        <p>Vancouver Community College (VCC) is one of British Columbia's largest public colleges, serving over 26,000 students annually across two downtown Vancouver campuses.</p>
+                    </div>
+                </div>
+                <h3>The Problem</h3>
+                <p>VCC was running critical student registration, curriculum management, and academic fee calculation workflows on an aging ColdFusion-based web architecture that was increasingly difficult to maintain and scale.</p>
+                <h3>Their challenges were:</h3>
+                <ul>
+                    <li>Legacy ColdFusion codebase with limited developer support available</li>
+                    <li>Performance degradation during peak registration periods</li>
+                    <li>Security vulnerabilities in the aging framework</li>
+                    <li>Inability to integrate with modern cloud services and APIs</li>
+                </ul>
+                <h3>Our Solution</h3>
+                <p>Spot Solutions led a comprehensive modernization initiative, migrating the legacy ColdFusion applications to a modern cloud-based architecture. The new platform features improved student registration workflows, automated curriculum management, and streamlined fee calculation processes with modern security standards.</p>
+                <h3>The Impact</h3>
+                <p>Registration processing capacity increased by 300%, system downtime during peak periods was eliminated, and the modern architecture now supports seamless integration with provincial education systems and payment gateways.</p>
+            `
+        }
+    ];
+
+    let currentCaseIndex = 0;
+    const overlay = document.getElementById('csModalOverlay');
+    const modalBody = document.getElementById('csModalBody');
+    const headerTitle = document.getElementById('csModalHeaderTitle');
+    const prevBtn = document.getElementById('csModalPrev');
+    const nextBtn = document.getElementById('csModalNext');
+    const closeBtn = document.getElementById('csModalClose');
+    const cards = document.querySelectorAll('.portfolio-exact-card');
+
+    function openModal(index) {
+        currentCaseIndex = index;
+        renderCase();
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function renderCase() {
+        const cs = caseStudies[currentCaseIndex];
+        headerTitle.textContent = cs.headerTitle;
+        modalBody.innerHTML = cs.body;
+        modalBody.scrollTop = 0;
+    }
+
+    cards.forEach(card => {
+        card.addEventListener('click', function() {
+            const index = parseInt(this.getAttribute('data-index'), 10);
+            if (!isNaN(index) && index < caseStudies.length) {
+                openModal(index);
+            }
+        });
+    });
+
+    prevBtn.addEventListener('click', function() {
+        currentCaseIndex = (currentCaseIndex - 1 + caseStudies.length) % caseStudies.length;
+        renderCase();
+    });
+
+    nextBtn.addEventListener('click', function() {
+        currentCaseIndex = (currentCaseIndex + 1) % caseStudies.length;
+        renderCase();
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) closeModal();
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeModal();
+        if (overlay.classList.contains('active')) {
+            if (e.key === 'ArrowLeft') prevBtn.click();
+            if (e.key === 'ArrowRight') nextBtn.click();
+        }
+    });
+});
+</script>
+
+{{template "footer" .}}

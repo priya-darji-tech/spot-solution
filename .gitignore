@@ -1,0 +1,31 @@
+# Binaries
+bin/
+dist/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+/server
+
+# Environment configuration
+.env
+.env.local
+.env.*.local
+
+# IDE & OS files
+.DS_Store
+.idea/
+.vscode/
+.cursor/
+*.swp
+*.swo
+
+# Local / scrape artifacts
+.firecrawl/
+cookies.txt
+
+# Test coverage & artifacts
+coverage.out
+coverage.html
+*.log

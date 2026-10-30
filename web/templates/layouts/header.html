@@ -1,0 +1,130 @@
+{{define "header"}}
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>{{.Title}}</title>
+    <meta name="description" content="{{.Description}}">
+    {{if .Canonical}}<link rel="canonical" href="{{.Canonical}}">{{end}}
+
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{.Title}}">
+    <meta property="og:description" content="{{.Description}}">
+    <meta property="og:url" content="{{.Canonical}}">
+    <meta property="og:site_name" content="Spot Solutions">
+
+    <!-- Spot Solutions Typography: Inter & Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="/static/css/main.css?v=202610271805">
+
+    <link rel="shortcut icon" href="https://spotsolutions.com/wp-content/uploads/2017/08/favicon-16x16.png" type="image/x-icon">
+</head>
+<body class="home-page">
+    <div class="page-wrapper">
+        <!-- Header -->
+        <header id="header" class="header-corporate">
+            <div class="header-main">
+                <div class="container header-container">
+                    <!-- Logo -->
+                    <div class="header-left">
+                        <a href="/" class="site-logo" title="Spot Solutions - Custom Software Development and SharePoint">
+                            <img src="https://spotsolutions.com/wp-content/uploads/2023/08/Spot-Logo1-tr-128x53@2x.png" alt="Spot Solutions" class="logo-img" onerror="this.onerror=null; this.src='https://spotsolutions.com/wp-content/uploads/2019/02/Spot-Logo-tr-128x53.png';">
+                        </a>
+                    </div>
+
+                    <!-- Navigation Menu -->
+                    <div class="header-right">
+                        <button class="mobile-nav-toggle" id="navToggle" aria-label="Toggle menu">
+                            <i class="fas fa-bars"></i>
+                        </button>
+
+                        <nav id="main-nav" class="main-nav">
+                            <ul class="nav-list" id="navMenu">
+                                <li class="nav-item {{if eq .CurrentPath "/"}}active{{end}}">
+                                    <a href="/">Home</a>
+                                </li>
+
+                                <li class="nav-item has-dropdown {{if or (eq .CurrentPath "/about") (eq .CurrentPath "/about-us")}}active{{end}}">
+                                    <a href="/about-us">About Us <i class="fas fa-angle-down"></i></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/about-us">About Us</a></li>
+                                        <li><a href="/careers">Careers</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="nav-item has-dropdown {{if eq .CurrentPath "/services"}}active{{end}}">
+                                    <a href="/services">Services <i class="fas fa-angle-down"></i></a>
+                                    <ul class="dropdown-menu dropdown-wide">
+                                        <li><a href="/services/custom-software">Custom Software Development</a></li>
+                                        <li class="has-submenu">
+                                            <a href="/services/sharepoint">SharePoint/M365 <i class="fas fa-angle-right sub-arrow"></i></a>
+                                            <ul class="submenu">
+                                                <li><a href="/services/sharepoint-migration-2">SharePoint Migration</a></li>
+                                                <li><a href="/services/miscrosoft-365-experts">Microsoft 365 Experts</a></li>
+                                                <li><a href="/services/powerplatform">Power Platform</a></li>
+                                                <li><a href="/services/intranet">SharePoint Intranet</a></li>
+                                                <li><a href="/services/sharepoint-custom-development">SharePoint Custom Development</a></li>
+                                                <li><a href="/services/sharepoint-support">SharePoint Support</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="/services/ai">Artificial Intelligence (AI) &amp; Machine Learning</a></li>
+                                        <li><a href="/services/mobile">Mobile Solutions</a></li>
+                                        <li><a href="/services/web-applications">Web Applications</a></li>
+                                        <li><a href="/services/requirements">Requirements Analysis</a></li>
+                                        <li><a href="/services/change-managment">Change Management</a></li>
+                                        <li><a href="/services/database">Databases</a></li>
+                                        <li><a href="/services/hosting">Enterprise Hosting</a></li>
+                                        <li><a href="/services/legacy-system-upgrades">Legacy System Upgrades</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="nav-item has-dropdown">
+                                    <a href="/services">Training <i class="fas fa-angle-down"></i></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/services">SharePoint and M365 Training</a></li>
+                                        <li class="has-submenu">
+                                            <a href="/blog">Spot Academy (Free) <i class="fas fa-angle-right sub-arrow"></i></a>
+                                            <ul class="submenu">
+                                                <li><a href="/blog">Introduction to SharePoint (FREE)</a></li>
+                                                <li><a href="/blog">SharePoint Metadata and You (FREE)</a></li>
+                                                <li><a href="/blog">Working with Document Libraries (FREE)</a></li>
+                                                <li><a href="/blog">Conversational AI Dev Using Copilot (FREE)</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="nav-item {{if eq .CurrentPath "/portfolio"}}active{{end}}">
+                                    <a href="/portfolio">Portfolio</a>
+                                </li>
+
+                                <li class="nav-item {{if or (eq .CurrentPath "/contact") (eq .CurrentPath "/contact-us")}}active{{end}}">
+                                    <a href="/contact-us">Contact Us</a>
+                                </li>
+
+                                <li class="nav-item {{if eq .CurrentPath "/blog"}}active{{end}}">
+                                    <a href="/blog">Blog</a>
+                                </li>
+
+                                <li class="nav-item {{if eq .CurrentPath "/careers"}}active{{end}}">
+                                    <a href="/careers">Jobs</a>
+                                </li>
+                            </ul>
+                        </nav>
+
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main id="main">
+{{end}}

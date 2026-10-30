@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{.CSRFToken}}">
+    <title>{{.Title}}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/main.css?v=2">
+</head>
+<body style="background: #F1F5F9; min-height: 100vh;">
+    <!-- Admin Nav -->
+    <header style="background: #07172c; color: #fff; padding: 16px 0; border-bottom: 2px solid #00b4d8;">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div class="logo-mark" style="width: 36px; height: 36px; font-size: 1.1rem; background: rgba(0, 180, 216, 0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-chart-line" style="color: #00b4d8;"></i>
+                </div>
+                <div>
+                    <span style="font-family: var(--font-heading); font-weight: 800; font-size: 1.15rem; color: #fff;">SPOT SOLUTIONS</span>
+                    <span style="color: #00b4d8; font-size: 0.8rem; font-weight: 700; margin-left: 6px; letter-spacing: 0.5px;">CRM PORTAL</span>
+                </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <span style="font-size: 0.85rem; color: #CBD5E1;">
+                    <i class="fas fa-user-circle text-cyan"></i> {{.CurrentUser.FullName}} (<strong>{{.CurrentUser.Role}}</strong>)
+                </span>
+                <a href="/" target="_blank" style="font-size: 0.85rem; color: #94A3B8;"><i class="fas fa-external-link-alt"></i> View Site</a>
+                <button id="adminLogoutBtn" class="btn btn-outline btn-sm" style="padding: 6px 14px; font-size: 0.8rem;">
+                    <i class="fas fa-sign-out-alt"></i> Sign Out
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" style="padding: 30px 24px 60px;">
+        <!-- Page Title & Add Lead Action -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div>
+                <h1 style="font-size: 1.85rem; margin-bottom: 4px; color: #0f172a;">Inbound Website Leads</h1>
+                <p style="color: #64748b; font-size: 0.9rem; margin: 0;">
+                    Total Inquiries: <strong>{{.TotalLeads}}</strong>
+                </p>
+            </div>
+            {{if or (eq .CurrentUser.Role "admin") (eq .CurrentUser.Role "manager")}}
+            <button id="btnOpenAddLead" class="btn btn-primary" style="padding: 9px 18px; font-size: 13.5px; display: inline-flex; align-items: center; gap: 8px;">
+                <i class="fas fa-plus"></i> Add New Lead
+            </button>
+            {{end}}
+        </div>
+
+        <!-- Filter Controls Bar -->
+        <div class="crm-controls-bar">
+            <!-- Status Tabs -->
+            <div class="crm-filter-group">
+                <a href="/admin/leads?status=&search={{.SearchQuery}}&sort_by={{.SortBy}}&sort_dir={{.SortDir}}&page_size={{.PageSize}}" class="crm-status-pill {{if eq .StatusFilter ""}}active{{end}}">All</a>
+                <a href="/admin/leads?status=New&search={{.SearchQuery}}&sort_by={{.SortBy}}&sort_dir={{.SortDir}}&page_size={{.PageSize}}" class="crm-status-pill {{if eq .StatusFilter "New"}}active{{end}}">New</a>
+                <a href="/admin/leads?status=Contacted&search={{.SearchQuery}}&sort_by={{.SortBy}}&sort_dir={{.SortDir}}&page_size={{.PageSize}}" class="crm-status-pill {{if eq .StatusFilter "Contacted"}}active{{end}}">Contacted</a>
+                <a href="/admin/leads?status=Qualified&search={{.SearchQuery}}&sort_by={{.SortBy}}&sort_dir={{.SortDir}}&page_size={{.PageSize}}" class="crm-status-pill {{if eq .StatusFilter "Qualified"}}active{{end}}">Qualified</a>
+                <a href="/admin/leads?status=Converted&search={{.SearchQuery}}&sort_by={{.SortBy}}&sort_dir={{.SortDir}}&page_size={{.PageSize}}" class="crm-status-pill {{if eq .StatusFilter "Converted"}}active{{end}}">Converted</a>
+                <a href="/admin/leads?status=Lost&search={{.SearchQuery}}&sort_by={{.SortBy}}&sort_dir={{.SortDir}}&page_size={{.PageSize}}" class="crm-status-pill {{if eq .StatusFilter "Lost"}}active{{end}}">Lost</a>
+            </div>
+
+            <!-- Search & Sort Controls -->
+            <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                <form method="GET" action="/admin/leads" class="crm-search-box">
+                    <input type="hidden" name="status" value="{{.StatusFilter}}">
+                    <input type="hidden" name="sort_by" value="{{.SortBy}}">
+                    <input type="hidden" name="sort_dir" value="{{.SortDir}}">
+                    <input type="hidden" name="page_size" value="{{.PageSize}}">
+                    <i class="fas fa-search" style="color: #94a3b8; font-size: 13px;"></i>
+                    <input type="text" name="search" placeholder="Search name, email, company..." value="{{.SearchQuery}}">
+                    {{if .SearchQuery}}
+                    <a href="/admin/leads?status={{.StatusFilter}}&sort_by={{.SortBy}}&sort_dir={{.SortDir}}&page_size={{.PageSize}}" style="color: #94a3b8; text-decoration: none; font-size: 12px;"><i class="fas fa-times-circle"></i></a>
+                    {{end}}
+                    <button type="submit" title="Search"><i class="fas fa-arrow-right"></i></button>
+                </form>
+
+                <select id="sortSelector" class="crm-sort-select" onchange="window.location.href=this.value;">
+                    <option value="/admin/leads?status={{.StatusFilter}}&search={{.SearchQuery}}&sort_by=created_at&sort_dir=desc&page_size={{.PageSize}}" {{if and (eq .SortBy "created_at") (eq .SortDir "desc")}}selected{{end}}>Date: Newest First</option>
+                    <option value="/admin/leads?status={{.StatusFilter}}&search={{.SearchQuery}}&sort_by=created_at&sort_dir=asc&page_size={{.PageSize}}" {{if and (eq .SortBy "created_at") (eq .SortDir "asc")}}selected{{end}}>Date: Oldest First</option>
+                    <option value="/admin/leads?status={{.StatusFilter}}&search={{.SearchQuery}}&sort_by=first_name&sort_dir=asc&page_size={{.PageSize}}" {{if and (eq .SortBy "first_name") (eq .SortDir "asc")}}selected{{end}}>Name: A to Z</option>
+                    <option value="/admin/leads?status={{.StatusFilter}}&search={{.SearchQuery}}&sort_by=first_name&sort_dir=desc&page_size={{.PageSize}}" {{if and (eq .SortBy "first_name") (eq .SortDir "desc")}}selected{{end}}>Name: Z to A</option>
+                    <option value="/admin/leads?status={{.StatusFilter}}&search={{.SearchQuery}}&sort_by=status&sort_dir=asc&page_size={{.PageSize}}" {{if eq .SortBy "status"}}selected{{end}}>Status</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Leads Table Card -->
+        <div class="admin-card">
+            <div class="table-responsive">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Created</th>
+                            <th>Contact Name</th>
+                            <th>Company</th>
+                            <th>Contact Info</th>
+                            <th>Service</th>
+                            <th>Notes</th>
+                            <th>Status Action</th>
+                            <th style="text-align: right;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{if .Leads}}
+                            {{range .Leads}}
+                            <tr id="lead-row-{{.ID}}">
+                                <td style="font-size: 0.8rem; color: #64748B; white-space: nowrap;">
+                                    {{.CreatedAt.Format "Jan 02, 2006 15:04"}}
+                                </td>
+                                <td>
+                                    <strong>{{.FirstName}} {{.LastName}}</strong>
+                                </td>
+                                <td>
+                                    {{if .CompanyName}}{{.CompanyName}}{{else}}<span style="color: #94A3B8;">—</span>{{end}}
+                                </td>
+                                <td>
+                                    <div><a href="mailto:{{.Email}}" style="color: var(--color-accent-blue);"><i class="fas fa-envelope"></i> {{.Email}}</a></div>
+                                    {{if .Phone}}
+                                    <div style="font-size: 0.8rem; color: #64748B;"><i class="fas fa-phone"></i> {{.Phone}}</div>
+                                    {{end}}
+                                </td>
+                                <td>
+                                    <span style="font-weight: 600; color: #0284C7; font-size: 0.85rem;">{{.Service}}</span>
+                                </td>
+                                <td style="max-width: 180px; font-size: 0.85rem; color: #64748b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="{{.Notes}}">
+                                    {{if .Notes}}{{.Notes}}{{else}}<span style="color: #cbd5e1;">No notes</span>{{end}}
+                                </td>
+                                <td>
+                                    <select class="lead-status-select" data-lead-id="{{.ID}}" style="font-size: 0.8rem; padding: 6px 10px; width: 130px;" {{if eq $.CurrentUser.Role "viewer"}}disabled{{end}}>
+                                        <option value="New" {{if eq .Status "New"}}selected{{end}}>New</option>
+                                        <option value="Contacted" {{if eq .Status "Contacted"}}selected{{end}}>Contacted</option>
+                                        <option value="Qualified" {{if eq .Status "Qualified"}}selected{{end}}>Qualified</option>
+                                        <option value="Converted" {{if eq .Status "Converted"}}selected{{end}}>Converted</option>
+                                        <option value="Lost" {{if eq .Status "Lost"}}selected{{end}}>Lost</option>
+                                    </select>
+                                </td>
+                                <td style="text-align: right; white-space: nowrap;">
+                                    <button class="crm-btn-action btn-view-lead" data-lead-id="{{.ID}}" title="View full inquiry and internal notes">
+                                        <i class="fas fa-eye"></i> Details
+                                    </button>
+                                    {{if eq $.CurrentUser.Role "admin"}}
+                                    <button class="crm-btn-action crm-btn-danger btn-delete-lead" data-lead-id="{{.ID}}" title="Delete lead">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                    {{end}}
+                                </td>
+                            </tr>
+                            {{end}}
+                        {{else}}
+                            <tr>
+                                <td colspan="8" style="text-align: center; padding: 50px 20px; color: #64748B;">
+                                    <i class="fas fa-inbox" style="font-size: 2.5rem; color: #CBD5E1; margin-bottom: 12px; display: block;"></i>
+                                    {{if .SearchQuery}}
+                                    No leads matched your search query "<strong>{{.SearchQuery}}</strong>".
+                                    <div style="margin-top: 10px;">
+                                        <a href="/admin/leads?status={{.StatusFilter}}" class="btn btn-outline btn-sm">Clear Search</a>
+                                    </div>
+                                    {{else}}
+                                    No leads found for status "{{if .StatusFilter}}{{.StatusFilter}}{{else}}All{{end}}".
+                                    {{end}}
+                                </td>
+                            </tr>
+                        {{end}}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination Bar -->
+            <div class="crm-pagination-bar">
+                <div>
+                    Showing <strong>{{len .Leads}}</strong> of <strong>{{.TotalLeads}}</strong> leads (Page {{.Page}} of {{if gt .TotalPages 0}}{{.TotalPages}}{{else}}1{{end}})
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    {{if gt .Page 1}}
+                    <a href="/admin/leads?page={{.PrevPage}}&page_size={{.PageSize}}&status={{.StatusFilter}}&search={{.SearchQuery}}&sort_by={{.SortBy}}&sort_dir={{.SortDir}}" class="crm-page-btn">
+                        &larr; Previous
+                    </a>
+                    {{else}}
+                    <span class="crm-page-btn disabled">&larr; Previous</span>
+                    {{end}}
+
+                    {{if lt .Page .TotalPages}}
+                    <a href="/admin/leads?page={{.NextPage}}&page_size={{.PageSize}}&status={{.StatusFilter}}&search={{.SearchQuery}}&sort_by={{.SortBy}}&sort_dir={{.SortDir}}" class="crm-page-btn">
+                        Next &rarr;
+                    </a>
+                    {{else}}
+                    <span class="crm-page-btn disabled">Next &rarr;</span>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Lead Details & Notes Drawer -->
+    <div id="leadDrawerBackdrop" class="crm-modal-backdrop">
+        <div class="crm-drawer-dialog">
+            <div class="crm-modal-header">
+                <div>
+                    <h3 id="drawerLeadName" style="margin: 0; font-size: 1.35rem; color: #0f172a;">Lead Details</h3>
+                    <span id="drawerLeadService" style="font-size: 0.85rem; color: #0284c7; font-weight: 600;"></span>
+                </div>
+                <button type="button" class="crm-close-btn" id="btnCloseDrawer">&times;</button>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                <!-- Contact Info Card -->
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px;">
+                    <h4 style="font-size: 0.95rem; margin: 0 0 12px; color: #334155;">Customer Information</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 13.5px;">
+                        <div>
+                            <span style="color: #64748b; font-size: 12px; display: block;">Email</span>
+                            <a id="drawerLeadEmail" href="#" style="color: #0284c7; font-weight: 600;"></a>
+                        </div>
+                        <div>
+                            <span style="color: #64748b; font-size: 12px; display: block;">Phone</span>
+                            <span id="drawerLeadPhone" style="font-weight: 600; color: #1e293b;"></span>
+                        </div>
+                        <div>
+                            <span style="color: #64748b; font-size: 12px; display: block;">Company</span>
+                            <span id="drawerLeadCompany" style="font-weight: 600; color: #1e293b;"></span>
+                        </div>
+                        <div>
+                            <span style="color: #64748b; font-size: 12px; display: block;">Source</span>
+                            <span id="drawerLeadSource" class="badge" style="background: #e2e8f0; color: #334155;"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Inquiry Message -->
+                <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px;">
+                    <h4 style="font-size: 0.95rem; margin: 0 0 8px; color: #334155;">Inquiry Message</h4>
+                    <p id="drawerLeadMessage" style="font-size: 13.5px; color: #475569; line-height: 1.6; margin: 0; background: #f8fafc; padding: 12px; border-radius: 8px; border-left: 3px solid #00b4d8; white-space: pre-wrap;"></p>
+                </div>
+
+                <!-- Status & Internal Notes -->
+                <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px;">
+                    <h4 style="font-size: 0.95rem; margin: 0 0 14px; color: #334155;">Status &amp; Internal Notes</h4>
+                    
+                    <div style="margin-bottom: 14px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: #475569; display: block; margin-bottom: 6px;">Lead Status</label>
+                        <select id="drawerStatusSelect" class="crm-drawer-select" style="width: 100%; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 13.5px;" {{if eq .CurrentUser.Role "viewer"}}disabled{{end}}>
+                            <option value="New">New</option>
+                            <option value="Contacted">Contacted</option>
+                            <option value="Qualified">Qualified</option>
+                            <option value="Converted">Converted</option>
+                            <option value="Lost">Lost</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-bottom: 14px;">
+                        <label style="font-size: 12.5px; font-weight: 600; color: #475569; display: block; margin-bottom: 6px;">Internal Notes (preserves status if only updating notes)</label>
+                        <textarea id="drawerNotesText" rows="4" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 10px; font-family: inherit; font-size: 13.5px; outline: none; box-sizing: border-box;" placeholder="Add internal consultation notes, next steps, or customer requirements..." {{if eq .CurrentUser.Role "viewer"}}disabled{{end}}></textarea>
+                    </div>
+
+                    <div id="drawerSaveAlert" style="display: none; padding: 8px 12px; border-radius: 6px; font-size: 13px; margin-bottom: 12px;"></div>
+
+                    {{if ne .CurrentUser.Role "viewer"}}
+                    <button id="btnSaveDrawerNotes" type="button" class="btn btn-primary" style="width: 100%; padding: 10px; font-size: 13.5px;">
+                        <i class="fas fa-save"></i> Save Notes &amp; Status
+                    </button>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Lead Modal -->
+    <div id="addLeadModalBackdrop" class="crm-modal-backdrop">
+        <div class="crm-modal-dialog">
+            <div class="crm-modal-header">
+                <h3 style="margin: 0; font-size: 1.35rem; color: #0f172a;"><i class="fas fa-user-plus text-cyan"></i> Add New Lead</h3>
+                <button type="button" class="crm-close-btn" id="btnCloseAddLead">&times;</button>
+            </div>
+
+            <form id="addLeadForm">
+                <div id="addLeadAlert" style="display: none; padding: 10px 14px; border-radius: 6px; font-size: 13.5px; margin-bottom: 16px;"></div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px;">
+                    <div>
+                        <label style="font-size: 12.5px; font-weight: 600; color: #475569; display: block; margin-bottom: 4px;">First Name *</label>
+                        <input type="text" name="first_name" required style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 13.5px; box-sizing: border-box;">
+                    </div>
+                    <div>
+                        <label style="font-size: 12.5px; font-weight: 600; color: #475569; display: block; margin-bottom: 4px;">Last Name *</label>
+                        <input type="text" name="last_name" required style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 13.5px; box-sizing: border-box;">
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px;">
+                    <div>
+                        <label style="font-size: 12.5px; font-weight: 600; color: #475569; display: block; margin-bottom: 4px;">Email Address *</label>
+                        <input type="email" name="email" required style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 13.5px; box-sizing: border-box;">
+                    </div>
+                    <div>
+                        <label style="font-size: 12.5px; font-weight: 600; color: #475569; display: block; margin-bottom: 4px;">Phone</label>
+                        <input type="tel" name="phone" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 13.5px; box-sizing: border-box;">
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px;">
+                    <div>
+                        <label style="font-size: 12.5px; font-weight: 600; color: #475569; display: block; margin-bottom: 4px;">Company Name</label>
+                        <input type="text" name="company_name" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 13.5px; box-sizing: border-box;">
+                    </div>
+                    <div>
+                        <label style="font-size: 12.5px; font-weight: 600; color: #475569; display: block; margin-bottom: 4px;">Service Requested *</label>
+                        <select name="service" required style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 13.5px; box-sizing: border-box; background: #fff;">
+                            <option value="Custom Software Development">Custom Software Development</option>
+                            <option value="SharePoint & Microsoft 365">SharePoint &amp; Microsoft 365</option>
+                            <option value="Web Applications">Web Applications</option>
+                            <option value="Mobile Solutions">Mobile Solutions</option>
+                            <option value="Power Apps & Power Platform">Power Apps &amp; Power Platform</option>
+                            <option value="AI Advisory & Copilot">AI Advisory &amp; Copilot</option>
+                            <option value="Database Architecture">Database Architecture</option>
+                            <option value="General Consultation">General Consultation</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 12px;">
+                    <label style="font-size: 12.5px; font-weight: 600; color: #475569; display: block; margin-bottom: 4px;">Inquiry / Project Message</label>
+                    <textarea name="message" rows="3" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-family: inherit; font-size: 13.5px; box-sizing: border-box;" placeholder="Project scope, requirements, or notes..."></textarea>
+                </div>
+
+                <div style="margin-bottom: 18px;">
+                    <label style="font-size: 12.5px; font-weight: 600; color: #475569; display: block; margin-bottom: 4px;">Initial Internal Notes</label>
+                    <textarea name="notes" rows="2" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-family: inherit; font-size: 13.5px; box-sizing: border-box;" placeholder="Optional internal qualification note..."></textarea>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; gap: 10px;">
+                    <button type="button" class="btn btn-outline" id="btnCancelAddLead" style="padding: 8px 16px;">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="btnSubmitAddLead" style="padding: 8px 18px;">Create Lead</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/static/js/main.js?v=2"></script>
+    <script>
+    (function() {
+        const CSRF_TOKEN = "{{.CSRFToken}}";
+
+        function getCsrfToken() {
+            if (CSRF_TOKEN) return CSRF_TOKEN;
+            const meta = document.querySelector('meta[name="csrf-token"]');
+            if (meta && meta.content) return meta.content;
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; csrf_token=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return '';
+        }
+
+        function initCRM() {
+            if (window.__crm_initialized) return;
+            window.__crm_initialized = true;
+
+            // 1. Add Lead Modal
+            const btnOpenAdd = document.getElementById('btnOpenAddLead');
+            const addBackdrop = document.getElementById('addLeadModalBackdrop');
+            const btnCloseAdd = document.getElementById('btnCloseAddLead');
+            const btnCancelAdd = document.getElementById('btnCancelAddLead');
+            const addForm = document.getElementById('addLeadForm');
+            const addAlert = document.getElementById('addLeadAlert');
+
+            if (btnOpenAdd && addBackdrop) {
+                btnOpenAdd.onclick = function() {
+                    if (addAlert) addAlert.style.display = 'none';
+                    if (addForm) addForm.reset();
+                    addBackdrop.style.display = 'flex';
+                };
+
+                const closeAdd = function() {
+                    addBackdrop.style.display = 'none';
+                };
+                if (btnCloseAdd) btnCloseAdd.onclick = closeAdd;
+                if (btnCancelAdd) btnCancelAdd.onclick = closeAdd;
+
+                addBackdrop.onclick = function(e) {
+                    if (e.target === addBackdrop) closeAdd();
+                };
+
+                if (addForm) {
+                    addForm.onsubmit = async function(e) {
+                        e.preventDefault();
+                        const submitBtn = document.getElementById('btnSubmitAddLead');
+                        const formData = new FormData(addForm);
+                        const payload = Object.fromEntries(formData.entries());
+
+                        submitBtn.disabled = true;
+                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating...';
+
+                        try {
+                            const res = await fetch('/api/leads', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-Token': getCsrfToken()
+                                },
+                                body: JSON.stringify(payload)
+                            });
+                            const data = await res.json();
+                            if (res.ok && data.success) {
+                                window.location.reload();
+                            } else {
+                                if (addAlert) {
+                                    addAlert.style.display = 'block';
+                                    addAlert.style.background = '#fee2e2';
+                                    addAlert.style.color = '#b91c1c';
+                                    addAlert.textContent = data.error || 'Failed to create lead.';
+                                }
+                                submitBtn.disabled = false;
+                                submitBtn.innerHTML = 'Create Lead';
+                            }
+                        } catch (err) {
+                            if (addAlert) {
+                                addAlert.style.display = 'block';
+                                addAlert.style.background = '#fee2e2';
+                                addAlert.style.color = '#b91c1c';
+                                addAlert.textContent = 'Network error occurred.';
+                            }
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = 'Create Lead';
+                        }
+                    };
+                }
+            }
+
+            // 2. Lead Details Drawer
+            const drawerBackdrop = document.getElementById('leadDrawerBackdrop');
+            const btnCloseDrawer = document.getElementById('btnCloseDrawer');
+            let activeDrawerLeadId = null;
+
+            if (drawerBackdrop) {
+                const closeDrawer = function() {
+                    drawerBackdrop.style.display = 'none';
+                    activeDrawerLeadId = null;
+                };
+                if (btnCloseDrawer) btnCloseDrawer.onclick = closeDrawer;
+                drawerBackdrop.onclick = function(e) {
+                    if (e.target === drawerBackdrop) closeDrawer();
+                };
+
+                document.querySelectorAll('.btn-view-lead').forEach(btn => {
+                    btn.onclick = async function() {
+                        const leadId = btn.dataset.leadId;
+                        activeDrawerLeadId = leadId;
+
+                        const alertBox = document.getElementById('drawerSaveAlert');
+                        if (alertBox) alertBox.style.display = 'none';
+
+                        try {
+                            const res = await fetch(`/api/leads/${leadId}`);
+                            const data = await res.json();
+
+                            if (res.ok && data.success && data.data) {
+                                const lead = data.data;
+                                document.getElementById('drawerLeadName').textContent = `${lead.first_name} ${lead.last_name}`;
+                                document.getElementById('drawerLeadService').textContent = lead.service || 'Service Inquiry';
+
+                                const emailEl = document.getElementById('drawerLeadEmail');
+                                emailEl.textContent = lead.email;
+                                emailEl.href = `mailto:${lead.email}`;
+
+                                document.getElementById('drawerLeadPhone').textContent = lead.phone || '—';
+                                document.getElementById('drawerLeadCompany').textContent = lead.company_name || '—';
+                                document.getElementById('drawerLeadSource').textContent = lead.source || 'Website';
+                                document.getElementById('drawerLeadMessage').textContent = lead.message || 'No inquiry text provided.';
+
+                                const statusSelect = document.getElementById('drawerStatusSelect');
+                                if (statusSelect) statusSelect.value = lead.status || 'New';
+
+                                const notesText = document.getElementById('drawerNotesText');
+                                if (notesText) notesText.value = lead.notes || '';
+
+                                drawerBackdrop.style.display = 'flex';
+                            } else {
+                                alert('Failed to load lead details: ' + (data.error || 'Server error'));
+                            }
+                        } catch (err) {
+                            alert('Network error loading lead details');
+                        }
+                    };
+                });
+
+                const btnSaveNotes = document.getElementById('btnSaveDrawerNotes');
+                if (btnSaveNotes) {
+                    btnSaveNotes.onclick = async function() {
+                        if (!activeDrawerLeadId) return;
+
+                        const statusSelect = document.getElementById('drawerStatusSelect');
+                        const notesText = document.getElementById('drawerNotesText');
+                        const alertBox = document.getElementById('drawerSaveAlert');
+
+                        const newStatus = statusSelect ? statusSelect.value : '';
+                        const newNotes = notesText ? notesText.value.trim() : '';
+
+                        btnSaveNotes.disabled = true;
+                        btnSaveNotes.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+                        try {
+                            const res = await fetch(`/api/leads/${activeDrawerLeadId}/status`, {
+                                method: 'PATCH',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-Token': getCsrfToken()
+                                },
+                                body: JSON.stringify({
+                                    status: newStatus,
+                                    notes: newNotes
+                                })
+                            });
+
+                            const data = await res.json();
+                            if (res.ok && data.success) {
+                                if (alertBox) {
+                                    alertBox.style.display = 'block';
+                                    alertBox.style.background = '#e8f8ec';
+                                    alertBox.style.color = '#0fbc00';
+                                    alertBox.style.border = '1px solid #0fbc00';
+                                    alertBox.textContent = 'Notes and status updated successfully!';
+                                }
+                                const rowSelect = document.querySelector(`.lead-status-select[data-lead-id="${activeDrawerLeadId}"]`);
+                                if (rowSelect) rowSelect.value = newStatus;
+                            } else {
+                                if (alertBox) {
+                                    alertBox.style.display = 'block';
+                                    alertBox.style.background = '#fee2e2';
+                                    alertBox.style.color = '#b91c1c';
+                                    alertBox.style.border = '1px solid #ef4444';
+                                    alertBox.textContent = data.error || 'Failed to update lead.';
+                                }
+                            }
+                        } catch (err) {
+                            if (alertBox) {
+                                alertBox.style.display = 'block';
+                                alertBox.style.background = '#fee2e2';
+                                alertBox.style.color = '#b91c1c';
+                                alertBox.style.border = '1px solid #ef4444';
+                                alertBox.textContent = 'Network error occurred.';
+                            }
+                        } finally {
+                            btnSaveNotes.disabled = false;
+                            btnSaveNotes.innerHTML = '<i class="fas fa-save"></i> Save Notes &amp; Status';
+                        }
+                    };
+                }
+            }
+
+            // 3. Status Action Dropdowns in Table
+            document.querySelectorAll('.lead-status-select').forEach(select => {
+                select.onchange = async function() {
+                    const leadId = select.dataset.leadId;
+                    if (!leadId) return;
+                    const newStatus = select.value;
+                    select.disabled = true;
+
+                    try {
+                        const res = await fetch(`/api/leads/${leadId}/status`, {
+                            method: 'PATCH',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-Token': getCsrfToken()
+                            },
+                            body: JSON.stringify({ status: newStatus })
+                        });
+                        const data = await res.json();
+                        if (!res.ok || !data.success) {
+                            alert('Failed to update status: ' + (data.error || 'Server error'));
+                        }
+                    } catch (err) {
+                        alert('Network error while updating status');
+                    } finally {
+                        select.disabled = false;
+                    }
+                };
+            });
+
+            // 4. Delete Lead
+            document.querySelectorAll('.btn-delete-lead').forEach(btn => {
+                btn.onclick = async function(e) {
+                    if (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                    if (btn.disabled) return;
+                    const leadId = btn.dataset.leadId;
+                    if (!leadId) return;
+                    if (!confirm('Are you sure you want to permanently delete this lead?')) return;
+
+                    btn.disabled = true;
+                    try {
+                        const res = await fetch(`/api/leads/${leadId}`, {
+                            method: 'DELETE',
+                            headers: { 'X-CSRF-Token': getCsrfToken() }
+                        });
+                        const data = await res.json();
+                        if (res.ok && data.success) {
+                            const row = document.getElementById(`lead-row-${leadId}`);
+                            if (row) row.remove();
+                        } else {
+                            alert('Failed to delete lead: ' + (data.error || 'Insufficient permissions'));
+                            btn.disabled = false;
+                        }
+                    } catch (err) {
+                        alert('Network error while deleting lead');
+                        btn.disabled = false;
+                    }
+                };
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCRM);
+        } else {
+            initCRM();
+        }
+    })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+{{template "header" .}}
+
+<!-- Breadcrumbs Banner -->
+<section class="page-top-bar">
+    <div class="container">
+        <div class="page-top-kicker">
+            <i class="fas fa-exclamation-triangle"></i> ERROR 404
+        </div>
+        <div class="breadcrumbs-list">
+            <a href="/">Home</a> <span>/</span> <span class="current">404</span>
+        </div>
+        <h1 class="page-top-title">Page Not Found</h1>
+        <p class="page-top-subtitle">The requested resource could not be located on our server.</p>
+    </div>
+</section>
+
+<section style="padding: 70px 0 90px; text-align: center; background: #ffffff;">
+    <div class="container" style="max-width: 680px;">
+        <div style="font-size: 7.5rem; font-weight: 900; background: linear-gradient(135deg, #0084ff, #00b4d8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin-bottom: 20px; font-family: var(--font-heading); letter-spacing: -2px;">
+            404
+        </div>
+        <h2 style="font-size: 2.2rem; margin-bottom: 14px; font-family: var(--font-heading); color: #0f172a; font-weight: 800;">
+            Looking for Something Specific?
+        </h2>
+        <p style="color: #64748b; font-size: 16px; line-height: 1.7; margin-bottom: 35px;">
+            The page you are trying to visit may have moved, had its address updated, or is temporarily offline. Explore our core services or get in touch with our team.
+        </p>
+
+        <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px;">
+            <a href="/" class="btn btn-primary btn-lg" style="box-shadow: 0 4px 14px rgba(0, 132, 255, 0.35);">
+                <i class="fas fa-home" style="margin-right: 6px;"></i> Return to Homepage
+            </a>
+            <a href="/services" class="btn btn-secondary btn-lg">
+                <i class="fas fa-th-large" style="margin-right: 6px;"></i> Browse Services
+            </a>
+            <a href="/contact-us" class="btn btn-secondary btn-lg">
+                <i class="fas fa-envelope" style="margin-right: 6px;"></i> Contact Us
+            </a>
+        </div>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; font-size: 14px; color: #64748b;">
+            Need immediate assistance? Call our Vancouver office at <a href="tel:6045514640" style="color: #0084ff; font-weight: 700;">(604) 551-4640</a>.
+        </div>
+    </div>
+</section>
+
+{{template "footer" .}}

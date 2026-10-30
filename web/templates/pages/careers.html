@@ -1,0 +1,1238 @@
+{{template "header" .}}
+
+<!-- Breadcrumbs Banner -->
+<section class="page-top-bar" style="background: radial-gradient(circle at 50% 35%, rgba(7, 23, 44, 0.60) 0%, rgba(7, 23, 44, 0.88) 100%), url('/static/images/hero-team-city.jpg') center center / cover no-repeat;">
+    <div class="container">
+        <div class="page-top-kicker">
+            <i class="fas fa-briefcase"></i> JOIN OUR TEAM
+        </div>
+        <div class="breadcrumbs-list">
+            <a href="/">Home</a> <span>/</span> <span class="current">Careers</span>
+        </div>
+        <h1 class="page-top-title">Build High-Impact Software With Us</h1>
+        <p class="page-top-subtitle">Join a collaborative Canadian software consultancy where experienced engineers use modern Agentic AI workflows to deliver mission-critical solutions.</p>
+    </div>
+</section>
+
+<div class="container" style="padding: 45px 15px 75px;">
+    <!-- ================================================================= -->
+    <!-- ENGINEERING CULTURE / WHY BUILD YOUR CAREER AT SPOT (1:1 REDESIGN) -->
+    <!-- ================================================================= -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap');
+
+        .careers-culture-section {
+            position: relative;
+            background: #ffffff;
+            padding: 20px 0 35px;
+            overflow: hidden;
+            border-radius: 24px;
+            margin-bottom: 45px;
+        }
+
+        /* Framing Background Photos */
+        .culture-frame-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 175px;
+            height: 310px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .culture-frame-left img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: left top;
+            display: block;
+        }
+
+        .culture-frame-right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 155px;
+            height: 325px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .culture-frame-right img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: right top;
+            display: block;
+        }
+
+        /* Ambient Dots on Bottom Left */
+        .culture-dots-left {
+            position: absolute;
+            left: 20px;
+            bottom: 80px;
+            width: 80px;
+            height: 80px;
+            background-image: radial-gradient(rgba(56, 189, 248, 0.4) 2px, transparent 2px);
+            background-size: 13px 13px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .culture-inner-wrap {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Section Header */
+        .culture-header {
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto 32px;
+            position: relative;
+        }
+
+        .culture-kicker-wrap {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 6px;
+        }
+
+        .culture-kicker-line {
+            display: inline-block;
+            width: 28px;
+            height: 2px;
+            background: #0076FF;
+            border-radius: 2px;
+        }
+
+        .culture-kicker {
+            color: #0076FF;
+            font-family: var(--font-heading);
+            font-size: 11.5px;
+            font-weight: 800;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+        }
+
+        .culture-title {
+            font-family: var(--font-heading);
+            font-size: 34px;
+            font-weight: 800;
+            color: #0F172A;
+            margin: 6px 0 10px;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+
+        .culture-title-highlight {
+            color: #0076FF;
+            position: relative;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .culture-title-highlight::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -3px;
+            width: 100%;
+            height: 4px;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 12' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,8 Q50,0 100,6' stroke='%230076FF' stroke-width='3.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center bottom / 100% 6px;
+        }
+
+        .culture-subtitle {
+            font-size: 14px;
+            color: #64748B;
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        /* Handwritten Doodles */
+        .culture-doodle-left {
+            position: absolute;
+            top: 48px;
+            left: 175px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .culture-doodle-right {
+            position: absolute;
+            top: 48px;
+            right: 165px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .culture-doodle-text {
+            font-family: 'Caveat', cursive, var(--font-heading);
+            font-size: 15px;
+            font-weight: 700;
+            color: #1E293B;
+            line-height: 1.2;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .culture-doodle-arrow {
+            width: 32px;
+            height: 32px;
+            margin-top: 2px;
+        }
+
+        /* 4 Value Proposition Cards Grid */
+        .culture-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .culture-val-card {
+            position: relative;
+            border-radius: 18px;
+            padding: 22px 20px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            min-height: 275px;
+            box-sizing: border-box;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+        }
+
+        .culture-val-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+        }
+
+        /* Card 1: Blue (Agentic AI) */
+        .culture-val-card.card-blue {
+            background: linear-gradient(180deg, #F0F7FF 0%, #FFFFFF 100%);
+            border: 1px solid #D6E8FF;
+            box-shadow: 0 2px 10px rgba(0, 118, 255, 0.04);
+        }
+        .culture-val-card.card-blue .culture-card-icon {
+            background: #0076FF;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 118, 255, 0.3);
+        }
+        .culture-val-card.card-blue .culture-card-num {
+            color: #93C5FD;
+        }
+        .culture-val-card.card-blue .culture-card-link {
+            color: #0076FF;
+        }
+
+        /* Card 2: Green (Critical Canadian Impact) */
+        .culture-val-card.card-green {
+            background: linear-gradient(180deg, #F0FDF4 0%, #FFFFFF 100%);
+            border: 1px solid #BBF7D0;
+            box-shadow: 0 2px 10px rgba(5, 150, 105, 0.04);
+        }
+        .culture-val-card.card-green .culture-card-icon {
+            background: #059669;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+        }
+        .culture-val-card.card-green .culture-card-num {
+            color: #86EFAC;
+        }
+        .culture-val-card.card-green .culture-card-link {
+            color: #059669;
+        }
+
+        /* Card 3: Orange (Hybrid & Flexible) */
+        .culture-val-card.card-orange {
+            background: linear-gradient(180deg, #FFFBEB 0%, #FFFFFF 100%);
+            border: 1px solid #FDE68A;
+            box-shadow: 0 2px 10px rgba(217, 119, 6, 0.04);
+        }
+        .culture-val-card.card-orange .culture-card-icon {
+            background: #D97706;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3);
+        }
+        .culture-val-card.card-orange .culture-card-num {
+            color: #FCD34D;
+        }
+        .culture-val-card.card-orange .culture-card-link {
+            color: #D97706;
+        }
+
+        /* Card 4: Purple (Continuous Growth) */
+        .culture-val-card.card-purple {
+            background: linear-gradient(180deg, #FAF5FF 0%, #FFFFFF 100%);
+            border: 1px solid #E9D5FF;
+            box-shadow: 0 2px 10px rgba(124, 58, 237, 0.04);
+        }
+        .culture-val-card.card-purple .culture-card-icon {
+            background: #7C3AED;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+        }
+        .culture-val-card.card-purple .culture-card-num {
+            color: #D8B4FE;
+        }
+        .culture-val-card.card-purple .culture-card-link {
+            color: #7C3AED;
+        }
+
+        /* Card Header */
+        .culture-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+
+        .culture-card-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            flex-shrink: 0;
+        }
+
+        .culture-card-num {
+            font-family: var(--font-heading);
+            font-size: 19px;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        /* Card Body */
+        .culture-card-body {
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            margin-bottom: 16px;
+        }
+
+        .culture-card-title {
+            font-family: var(--font-heading);
+            font-size: 17px;
+            font-weight: 800;
+            color: #0F172A;
+            margin: 0 0 8px;
+            line-height: 1.25;
+            letter-spacing: -0.2px;
+        }
+
+        .culture-card-desc {
+            font-size: 12px;
+            line-height: 1.55;
+            color: #475569;
+            margin: 0;
+            max-width: 92%;
+        }
+
+        /* Card Footer */
+        .culture-card-footer {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .culture-card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: gap 0.2s ease;
+        }
+        .culture-card-link:hover {
+            gap: 9px;
+        }
+        .culture-card-link i {
+            font-size: 10px;
+        }
+
+        /* 3D Decorative Thumbnails in Bottom Right */
+        .culture-card-thumb {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            height: 65px;
+            width: auto;
+            max-width: 75px;
+            object-fit: contain;
+            pointer-events: none;
+            border-bottom-right-radius: 18px;
+            z-index: 1;
+            opacity: 0.95;
+        }
+
+        /* Bottom Culture Highlights Bar */
+        .culture-bottom-bar {
+            background: #ffffff;
+            border-radius: 20px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+            padding: 16px 26px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            align-items: center;
+        }
+
+        .culture-bar-col {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-right: 1px solid #F1F5F9;
+            padding-right: 14px;
+        }
+        .culture-bar-col:last-child {
+            border-right: none;
+            padding-right: 0;
+        }
+
+        .culture-bar-icon-wrap {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #E0F2FE;
+            color: #0076FF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            flex-shrink: 0;
+        }
+
+        .culture-bar-text strong {
+            display: block;
+            font-family: var(--font-heading);
+            font-size: 12.5px;
+            font-weight: 800;
+            color: #0F172A;
+            line-height: 1.2;
+            margin-bottom: 2px;
+        }
+
+        .culture-bar-text span {
+            display: block;
+            font-size: 10.5px;
+            color: #64748B;
+            line-height: 1.35;
+        }
+
+        @media (max-width: 1140px) {
+            .culture-frame-left,
+            .culture-frame-right,
+            .culture-doodle-left,
+            .culture-doodle-right {
+                display: none;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .culture-cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .culture-bottom-bar {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 18px;
+            }
+            .culture-bar-col {
+                border-right: none;
+            }
+        }
+
+        @media (max-width: 580px) {
+            .culture-cards-grid {
+                grid-template-columns: 1fr;
+            }
+            .culture-bottom-bar {
+                grid-template-columns: 1fr;
+            }
+            .culture-title {
+                font-size: 26px;
+            }
+        }
+    </style>
+
+    <div class="careers-culture-section">
+        <!-- Framing Photo Right -->
+
+        <div class="culture-frame-right">
+            <img src="/static/images/careers/culture-office-right.png" alt="Spot Office Reception" loading="lazy">
+        </div>
+
+        <div class="culture-inner-wrap">
+            <!-- Section Header -->
+            <div class="culture-header">
+
+
+
+
+                <div class="culture-kicker-wrap">
+                    <span class="culture-kicker-line"></span>
+                    <span class="culture-kicker">ENGINEERING CULTURE</span>
+                    <span class="culture-kicker-line"></span>
+                </div>
+                <h2 class="culture-title">Why Build Your Career<br><span class="culture-title-highlight">at Spot?</span></h2>
+                <p class="culture-subtitle">
+                    We believe passionate, supported software professionals build extraordinary products for happy clients.
+                </p>
+            </div>
+
+            <!-- 4 Value Proposition Cards Grid -->
+            <div class="culture-cards-grid">
+                <!-- Card 1: Agentic AI Workflows -->
+                <div class="culture-val-card card-blue">
+                    <div class="culture-card-header">
+                        <div class="culture-card-icon"><i class="fas fa-robot"></i></div>
+                        <span class="culture-card-num">01</span>
+                    </div>
+                    <div class="culture-card-body">
+                        <h3 class="culture-card-title">Agentic AI Workflows</h3>
+                        <p class="culture-card-desc">
+                            We deeply integrate AI coding agents (Claude Code, GitHub Copilot) into our engineering lifecycle to amplify human craftsmanship.
+                        </p>
+                    </div>
+                    <div class="culture-card-footer">
+                        <a href="#openings" class="culture-card-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <img src="/static/images/careers/card1-robot.png" alt="Agentic AI Robot" class="culture-card-thumb">
+                </div>
+
+                <!-- Card 2: Critical Canadian Impact -->
+                <div class="culture-val-card card-green">
+                    <div class="culture-card-header">
+                        <div class="culture-card-icon"><i class="fas fa-landmark"></i></div>
+                        <span class="culture-card-num">02</span>
+                    </div>
+                    <div class="culture-card-body">
+                        <h3 class="culture-card-title">Critical Canadian Impact</h3>
+                        <p class="culture-card-desc">
+                            Work on systems tracking billions of dollars in enterprise transactions, public health directories, and major port logistics.
+                        </p>
+                    </div>
+                    <div class="culture-card-footer">
+                        <a href="#openings" class="culture-card-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <img src="/static/images/careers/card2-skyline.png" alt="Canadian Impact" class="culture-card-thumb">
+                </div>
+
+                <!-- Card 3: Hybrid & Flexible -->
+                <div class="culture-val-card card-orange">
+                    <div class="culture-card-header">
+                        <div class="culture-card-icon"><i class="fas fa-home"></i></div>
+                        <span class="culture-card-num">03</span>
+                    </div>
+                    <div class="culture-card-body">
+                        <h3 class="culture-card-title">Hybrid &amp; Flexible</h3>
+                        <p class="culture-card-desc">
+                            Headquartered in beautiful downtown Vancouver with flexible hybrid working schedules and genuine respect for work-life harmony.
+                        </p>
+                    </div>
+                    <div class="culture-card-footer">
+                        <a href="#openings" class="culture-card-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <img src="/static/images/careers/card3-plant.png" alt="Desk Plant" class="culture-card-thumb">
+                </div>
+
+                <!-- Card 4: Continuous Growth -->
+                <div class="culture-val-card card-purple">
+                    <div class="culture-card-header">
+                        <div class="culture-card-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <span class="culture-card-num">04</span>
+                    </div>
+                    <div class="culture-card-body">
+                        <h3 class="culture-card-title">Continuous Growth</h3>
+                        <p class="culture-card-desc">
+                            Paid Microsoft certifications, dedicated learning stipends, and opportunities to architect both custom code and low-code solutions.
+                        </p>
+                    </div>
+                    <div class="culture-card-footer">
+                        <a href="#openings" class="culture-card-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <img src="/static/images/careers/card4-books.png" alt="Continuous Growth Books" class="culture-card-thumb">
+                </div>
+            </div>
+
+            <!-- Bottom Culture Highlights Bar -->
+            <div class="culture-bottom-bar">
+                <!-- Col 1 -->
+                <div class="culture-bar-col">
+                    <div class="culture-bar-icon-wrap"><i class="fas fa-user-friends"></i></div>
+                    <div class="culture-bar-text">
+                        <strong>Supportive Team Culture</strong>
+                        <span>Collaborate with talented and friendly professionals.</span>
+                    </div>
+                </div>
+                <!-- Col 2 -->
+                <div class="culture-bar-col">
+                    <div class="culture-bar-icon-wrap"><i class="fas fa-lightbulb"></i></div>
+                    <div class="culture-bar-text">
+                        <strong>Meaningful Work</strong>
+                        <span>Solve real-world problems for government and enterprises.</span>
+                    </div>
+                </div>
+                <!-- Col 3 -->
+                <div class="culture-bar-col">
+                    <div class="culture-bar-icon-wrap"><i class="fas fa-chart-line"></i></div>
+                    <div class="culture-bar-text">
+                        <strong>Career Advancement</strong>
+                        <span>Clear growth paths and leadership opportunities.</span>
+                    </div>
+                </div>
+                <!-- Col 4 -->
+                <div class="culture-bar-col">
+                    <div class="culture-bar-icon-wrap"><i class="fas fa-heart"></i></div>
+                    <div class="culture-bar-text">
+                        <strong>Work-Life Balance</strong>
+                        <span>Flexible schedules and a people-first approach.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- FEATURED JOB OPENING (1:1 Exact Image Match Redesign)             -->
+    <!-- ================================================================= -->
+    <style>
+        .job-showcase-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 34px 34px 38px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 4px 24px rgba(15, 23, 42, 0.04);
+            margin-bottom: 25px;
+        }
+
+        /* Top Header */
+        .job-showcase-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 24px;
+            padding-bottom: 22px;
+            border-bottom: 1px solid #F1F5F9;
+        }
+
+        .job-status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: #ECFDF5;
+            color: #059669;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            padding: 4px 12px;
+            border-radius: 999px;
+            margin-bottom: 10px;
+        }
+
+        .job-status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #10B981;
+        }
+
+        .job-showcase-title {
+            font-family: var(--font-heading);
+            font-size: 30px;
+            font-weight: 800;
+            color: #0F172A;
+            line-height: 1.25;
+            letter-spacing: -0.5px;
+            margin: 0 0 10px;
+        }
+
+        .job-title-dash {
+            color: #0076FF;
+            font-weight: 700;
+        }
+
+        .job-title-highlight {
+            color: #0076FF;
+        }
+
+        .job-meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 13px;
+            color: #64748B;
+            font-weight: 600;
+            align-items: center;
+        }
+
+        .job-meta-row span {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .job-meta-row i {
+            color: #0076FF;
+            font-size: 13px;
+        }
+
+        /* Right Actions */
+        .job-showcase-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 16px;
+            flex-shrink: 0;
+        }
+
+        .job-apply-pill-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #0076FF;
+            color: #ffffff !important;
+            border-radius: 999px;
+            padding: 10px 24px;
+            font-family: var(--font-heading);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            box-shadow: 0 4px 16px rgba(0, 118, 255, 0.35);
+            transition: all 0.25s ease;
+        }
+
+        .job-apply-pill-btn:hover {
+            background: #0060D6;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 118, 255, 0.45);
+        }
+
+        .job-quick-features {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .job-q-feat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 4px;
+        }
+
+        .q-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #EFF6FF;
+            color: #0076FF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .q-text {
+            font-size: 10px;
+            font-weight: 700;
+            color: #0F172A;
+            line-height: 1.25;
+            white-space: nowrap;
+        }
+
+        /* Tags Row */
+        .job-tags-scroll {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 20px 0 26px;
+        }
+
+        .job-tag-pill {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            padding: 5px 13px;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #334155;
+            letter-spacing: -0.1px;
+        }
+
+        /* 2-Column Body */
+        .job-showcase-body {
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            gap: 30px;
+            margin-bottom: 32px;
+            align-items: start;
+        }
+
+        /* Left Side */
+        .job-intro-row {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .job-desk-photo-wrap {
+            position: relative;
+            flex-shrink: 0;
+            width: 215px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+        }
+
+        .job-desk-photo {
+            width: 100%;
+            height: 225px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .job-intro-text {
+            flex: 1;
+        }
+
+        .job-subheading {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: 800;
+            color: #0F172A;
+            margin: 0 0 10px;
+            line-height: 1.35;
+        }
+
+        .job-intro-text p {
+            font-size: 12.5px;
+            line-height: 1.6;
+            color: #475569;
+            margin: 0 0 10px;
+        }
+
+        /* Versatility Box */
+        .job-versatility-box {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            margin-top: 22px;
+            padding-top: 18px;
+            border-top: 1px solid #F1F5F9;
+        }
+
+        .versatility-icon-wrap {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: #EFF6FF;
+            color: #0076FF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            flex-shrink: 0;
+        }
+
+        .versatility-text {
+            flex: 1;
+        }
+
+        .versatility-text p {
+            font-size: 12.5px;
+            line-height: 1.6;
+            color: #475569;
+            margin: 0;
+        }
+
+        /* Right Side: Cards */
+        .job-req-card {
+            background: #ffffff;
+            border: 1px solid #E2E8F0;
+            border-radius: 16px;
+            padding: 20px 22px;
+            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+            margin-bottom: 16px;
+        }
+
+        .job-req-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .req-header-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #EFF6FF;
+            color: #0076FF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12.5px;
+        }
+
+        .job-req-header h4 {
+            font-family: var(--font-heading);
+            font-size: 15px;
+            font-weight: 800;
+            color: #0F172A;
+            margin: 0;
+        }
+
+        .job-check-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .job-check-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 12.5px;
+            color: #334155;
+            line-height: 1.5;
+        }
+
+        .check-icon {
+            color: #0076FF;
+            font-size: 13.5px;
+            margin-top: 2.5px;
+            flex-shrink: 0;
+        }
+
+        /* Bottom Action Pill Banner */
+        .job-bottom-banner {
+            background: linear-gradient(90deg, #07172F 0%, #082147 60%, #0A2F68 100%);
+            border-radius: 20px;
+            padding: 18px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(7, 23, 47, 0.16);
+        }
+
+        .job-bottom-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .bottom-briefcase-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: #0076FF;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 118, 255, 0.35);
+        }
+
+        .bottom-banner-text h4 {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: 800;
+            color: #ffffff;
+            margin: 0 0 2px;
+        }
+
+        .bottom-banner-text p {
+            font-size: 12px;
+            color: #94A3B8;
+            margin: 0;
+        }
+
+        .job-bottom-right {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .bottom-apply-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #0076FF;
+            color: #ffffff !important;
+            border-radius: 999px;
+            padding: 11px 26px;
+            font-family: var(--font-heading);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            box-shadow: 0 4px 16px rgba(0, 118, 255, 0.4);
+            white-space: nowrap;
+            transition: all 0.25s ease;
+        }
+
+        .bottom-apply-btn:hover {
+            background: #0060D6;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 118, 255, 0.5);
+        }
+
+        .bottom-doodle-wrap {
+            position: absolute;
+            right: -25px;
+            bottom: -46px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            pointer-events: none;
+            z-index: 4;
+        }
+
+        .bottom-doodle-text {
+            font-family: 'Caveat', cursive, var(--font-heading);
+            font-size: 15px;
+            font-weight: 700;
+            color: #1E293B;
+            line-height: 1.15;
+            text-align: right;
+            transform: rotate(-4deg);
+            white-space: nowrap;
+        }
+
+        .bottom-doodle-arrow {
+            width: 38px;
+            height: 28px;
+            margin-right: 18px;
+        }
+
+        @media (max-width: 960px) {
+            .job-showcase-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .job-showcase-right {
+                align-items: flex-start;
+            }
+            .job-showcase-body {
+                grid-template-columns: 1fr;
+            }
+            .job-intro-row {
+                flex-direction: column;
+            }
+            .job-desk-photo-wrap {
+                width: 100%;
+            }
+            .job-desk-photo {
+                height: 200px;
+            }
+            .job-bottom-banner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .bottom-doodle-wrap {
+                display: none;
+            }
+        }
+    </style>
+
+    <div class="job-showcase-card" id="openings">
+        <!-- Top Header Bar -->
+        <div class="job-showcase-header">
+            <div class="job-showcase-left">
+                <div class="job-status-pill">
+                    <span class="job-status-dot"></span>
+                    <span>ACTIVE OPENING</span>
+                </div>
+                <h2 class="job-showcase-title">
+                    Senior .NET / Microsoft 365 Developer <br>
+                    <span class="job-title-dash">—</span> <span class="job-title-highlight">Agentic AI</span>
+                </h2>
+                <div class="job-meta-row">
+                    <span><i class="fas fa-map-marker-alt"></i> Vancouver, BC (Hybrid)</span>
+                    <span><i class="fas fa-briefcase"></i> Full-Time Permanent</span>
+                    <span><i class="fas fa-building"></i> Spot Solutions Engineering</span>
+                </div>
+            </div>
+
+            <div class="job-showcase-right">
+                <a href="mailto:careers@spotsolutions.com?subject=Application%3A%20Senior%20.NET%20%2F%20Microsoft%20365%20Developer" class="job-apply-pill-btn">
+                    <span>APPLY NOW</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <div class="job-quick-features">
+                    <div class="job-q-feat">
+                        <span class="q-icon"><i class="fas fa-user-friends"></i></span>
+                        <span class="q-text">Join a<br>Talented Team</span>
+                    </div>
+                    <div class="job-q-feat">
+                        <span class="q-icon"><i class="fas fa-chart-line"></i></span>
+                        <span class="q-text">Work on<br>Real Impact</span>
+                    </div>
+                    <div class="job-q-feat">
+                        <span class="q-icon"><i class="fas fa-heart"></i></span>
+                        <span class="q-text">Grow Your<br>Career</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tags Row -->
+        <div class="job-tags-scroll">
+            <span class="job-tag-pill">C# / .NET Core</span>
+            <span class="job-tag-pill">SharePoint Online</span>
+            <span class="job-tag-pill">Power Platform</span>
+            <span class="job-tag-pill">Agentic AI Tools</span>
+            <span class="job-tag-pill">SQL Server</span>
+            <span class="job-tag-pill">Microsoft Graph API</span>
+            <span class="job-tag-pill">Azure Cloud</span>
+        </div>
+
+        <!-- Main 2-Column Body -->
+        <div class="job-showcase-body">
+            <!-- Left Column -->
+            <div class="job-body-left">
+                <!-- Top sub-row: Photo + "If you think AI..." -->
+                <div class="job-intro-row">
+                    <div class="job-desk-photo-wrap">
+                        <img src="/static/images/careers/job-laptop-desk.jpg" alt="Build Smarter Solutions" class="job-desk-photo">
+                    </div>
+                    <div class="job-intro-text">
+                        <h3 class="job-subheading">If you think AI is transforming software, we agree.</h3>
+                        <p>
+                            We're less interested in talking about hype than we are in <strong>using AI to build reliable software faster</strong>. At Spot Solutions, we incorporate Agentic AI deeply into our development lifecycle. Used properly, it makes an experienced developer dramatically more productive — allowing us to deliver robust software roughly <strong>twice as fast</strong> without compromising architectural integrity.
+                        </p>
+                        <p>
+                            You will still need strong fundamental knowledge of architecture, databases, APIs, security, and enterprise testing. The difference is that you will have advanced AI agents helping you design, code, test, and refactor software.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Bottom sub-row: Versatility We Look For -->
+                <div class="job-versatility-box">
+                    <div class="versatility-icon-wrap">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <div class="versatility-text">
+                        <h3 class="job-subheading">The Versatility We Look For</h3>
+                        <p>
+                            We look for engineers who can comfortably bridge <strong>custom software development and Microsoft 365 / SharePoint ecosystems</strong>. We don't write custom code when Power Automate is better, and we don't force low-code onto problems that require custom .NET APIs. <strong>We choose the technology that best solves the client's business challenge.</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: 2 Cards -->
+            <div class="job-body-right">
+                <!-- Card 1: What You'll Bring -->
+                <div class="job-req-card">
+                    <div class="job-req-header">
+                        <span class="req-header-icon"><i class="fas fa-user-tie"></i></span>
+                        <h4>What You'll Bring</h4>
+                    </div>
+                    <ul class="job-check-list">
+                        <li>
+                            <i class="fas fa-check-circle check-icon"></i>
+                            <span>Strong experience with C# / .NET Core, Web APIs, and microservices</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle check-icon"></i>
+                            <span>Relational database schema design and SQL optimization</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle check-icon"></i>
+                            <span>Clean architecture, Git workflows, and automated testing</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle check-icon"></i>
+                            <span>Curiosity and passion for modern AI tooling (Copilot, Claude, LLMs)</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Card 2: Microsoft 365 & Cloud Experience -->
+                <div class="job-req-card">
+                    <div class="job-req-header">
+                        <span class="req-header-icon"><i class="fas fa-cog"></i></span>
+                        <h4>Microsoft 365 &amp; Cloud Experience</h4>
+                    </div>
+                    <ul class="job-check-list">
+                        <li>
+                            <i class="fas fa-check-circle check-icon"></i>
+                            <span>SharePoint Online architecture, hubs, and permissions governance</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle check-icon"></i>
+                            <span>Power Apps and Power Automate workflow automation</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle check-icon"></i>
+                            <span>PowerShell scripting &amp; Microsoft Graph API integrations</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle check-icon"></i>
+                            <span>ShareGate migration tools or equivalent tenant migrations</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Action Pill Banner -->
+        <div class="job-bottom-banner">
+            <div class="job-bottom-left">
+                <div class="bottom-briefcase-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <div class="bottom-banner-text">
+                    <h4>Ready to make an impact?</h4>
+                    <p>Join our team and help build innovative solutions with AI and Microsoft 365.</p>
+                </div>
+            </div>
+            <div class="job-bottom-right">
+                <a href="mailto:careers@spotsolutions.com?subject=Application%3A%20Senior%20.NET%20%2F%20Microsoft%20365%20Developer" class="bottom-apply-btn">
+                    <span>APPLY NOW</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <!-- Doodle Annotation -->
+                <div class="bottom-doodle-wrap">
+                    <span class="bottom-doodle-text">Be Part of<br>What's Next!</span>
+                    <svg class="bottom-doodle-arrow" viewBox="0 0 50 40" fill="none">
+                        <path d="M46,6 C34,20 18,28 6,24" stroke="#1E293B" stroke-width="2.2" stroke-linecap="round" fill="none" />
+                        <path d="M12,16 L4,24 L14,32" stroke="#1E293B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{template "footer" .}}

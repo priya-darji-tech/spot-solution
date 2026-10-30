@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" width="100%" height="100%">
+  <!-- Round maroon geometric wheel/compass icon -->
+  <g transform="translate(45, 34)">
+    <circle cx="26" cy="26" r="24" fill="#991B1B" />
+    <circle cx="26" cy="26" r="17" fill="#ffffff" />
+    <circle cx="26" cy="26" r="11" fill="#991B1B" />
+    <path d="M 26 5 L 26 47 M 5 26 L 47 26" stroke="#ffffff" stroke-width="2.5" />
+    <circle cx="26" cy="26" r="5" fill="#ffffff" />
+  </g>
+  <!-- Text -->
+  <text x="115" y="55" font-family="'Arial', sans-serif" font-size="19" font-weight="900" fill="#1e293b" letter-spacing="1.5">PORT <tspan font-weight="normal" font-size="14" fill="#64748b">of</tspan></text>
+  <text x="115" y="78" font-family="'Arial', sans-serif" font-size="22" font-weight="700" fill="#1e293b" letter-spacing="0.5">vancouver</text>
+</svg>

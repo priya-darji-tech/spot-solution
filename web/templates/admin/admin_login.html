@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body style="background: #0B132B; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 24px;">
+    <div style="width: 100%; max-width: 440px; background: #1C2541; border: 1px solid rgba(0, 229, 255, 0.25); border-radius: var(--radius-lg); padding: 40px; box-shadow: var(--shadow-lg);">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <div style="width: 50px; height: 50px; margin: 0 auto 12px; background: rgba(0, 229, 255, 0.15); border: 1px solid rgba(0, 229, 255, 0.4); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+                <i class="fas fa-cube text-cyan"></i>
+            </div>
+            <h2 style="color: #fff; font-size: 1.6rem; margin-bottom: 6px;">Spot Solutions CRM Portal</h2>
+            <p style="color: #94A3B8; font-size: 0.85rem;">Authorized Staff & Administrator Access Only</p>
+        </div>
+
+        <div id="loginErrorBox" class="form-alert error" style="display: none;"></div>
+
+        <form id="adminLoginForm">
+            <div class="form-group">
+                <label class="form-label" style="color: #E2E8F0;">Email Address</label>
+                <input type="email" id="loginEmail" class="form-control" required placeholder="admin@spotsolutions.com" value="admin@spotsolutions.com">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 24px;">
+                <label class="form-label" style="color: #E2E8F0;">Password</label>
+                <input type="password" id="loginPassword" class="form-control" required placeholder="••••••••••••" value="AdminPass123!">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block btn-lg">
+                <i class="fas fa-lock"></i> Sign In to Dashboard
+            </button>
+        </form>
+
+        <div style="margin-top: 24px; text-align: center;">
+            <a href="/" style="color: #94A3B8; font-size: 0.85rem;"><i class="fas fa-arrow-left"></i> Return to Public Site</a>
+        </div>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

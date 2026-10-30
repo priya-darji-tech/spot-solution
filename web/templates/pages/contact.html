@@ -1,0 +1,1168 @@
+{{template "header" .}}
+
+<!-- Custom Page Styles to match exact reference -->
+<style>
+/* Header nav pill adjustment for Contact Us */
+.nav-item.active > a[href*="contact"],
+.nav-item > a[href*="contact"].current {
+    background: #dff0fd !important;
+    color: #0076de !important;
+    font-weight: 600 !important;
+    border-radius: 6px !important;
+    padding: 8px 18px !important;
+}
+
+/* =========================================
+   1. HERO SECTION
+   ========================================= */
+.contact-hero-section {
+    position: relative;
+    background-color: #07172c;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.contact-hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(to right, 
+            #07172c 0%, 
+            #07172c 34%, 
+            rgba(7, 23, 44, 0.94) 50%, 
+            rgba(7, 23, 44, 0.45) 75%, 
+            rgba(7, 23, 44, 0.15) 100%),
+        url('/static/images/contact-hero-exact.jpg');
+    background-position: center right;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+.contact-hero-container {
+    position: relative;
+    z-index: 2;
+    padding: 55px 15px 65px;
+    width: 100%;
+}
+
+.contact-hero-content {
+    max-width: 600px;
+}
+
+.contact-hero-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: #00b4d8;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.contact-hero-kicker .kicker-line {
+    display: inline-block;
+    width: 38px;
+    height: 2px;
+    background: #00b4d8;
+    border-radius: 2px;
+}
+
+.contact-hero-title {
+    font-family: var(--font-heading, 'Montserrat', sans-serif);
+    font-size: 3.2rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.15;
+    margin: 0 0 18px 0;
+    letter-spacing: -0.5px;
+}
+
+.contact-hero-title .text-cyan {
+    color: #00c0f0;
+}
+
+.contact-hero-desc {
+    color: #cbd5e1;
+    font-size: 14.5px;
+    line-height: 1.6;
+    margin: 0 0 28px 0;
+    max-width: 480px;
+}
+
+.contact-hero-badges {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+}
+
+.hero-badge-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.badge-icon-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(0, 192, 240, 0.45);
+    background: rgba(0, 192, 240, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #00c0f0;
+    font-size: 15px;
+    flex-shrink: 0;
+}
+
+.badge-text {
+    font-size: 13px;
+    color: #ffffff;
+    line-height: 1.25;
+    font-weight: 500;
+}
+
+.badge-text strong {
+    display: block;
+    font-weight: 700;
+}
+
+/* =========================================
+   2. THREE OFFICE LOCATION CARDS
+   ========================================= */
+.office-locations-section {
+    background-color: #f8fafc;
+    padding: 38px 0 20px;
+}
+
+.office-cards-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.office-location-card {
+    background: #ffffff;
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.office-location-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+}
+
+.office-img-wrap {
+    height: 155px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.office-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.office-location-card:hover .office-img-wrap img {
+    transform: scale(1.04);
+}
+
+.office-body {
+    padding: 18px 20px 20px;
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.office-title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.office-icon-box {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
+.office-icon-box.primary {
+    background: #0076de;
+    color: #ffffff;
+}
+
+.office-icon-box.secondary {
+    background: #eef6fd;
+    color: #0076de;
+}
+
+.office-name {
+    font-family: var(--font-heading, 'Montserrat', sans-serif);
+    font-size: 15px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+}
+
+.office-address {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #64748b;
+    margin: 0;
+    padding-right: 45px;
+}
+
+.office-action-btn {
+    position: absolute;
+    right: 18px;
+    bottom: 18px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.office-action-btn.primary {
+    background: #0076de;
+    color: #ffffff;
+}
+
+.office-action-btn.primary:hover {
+    background: #005bb5;
+    color: #ffffff;
+}
+
+.office-action-btn.secondary {
+    background: #eef6fd;
+    color: #0076de;
+}
+
+.office-action-btn.secondary:hover {
+    background: #0076de;
+    color: #ffffff;
+}
+
+/* =========================================
+   3. CONTACT FORM & SIDEBAR SECTION
+   ========================================= */
+.contact-main-section {
+    background-color: #f8fafc;
+    padding: 20px 0 55px;
+}
+
+.contact-main-grid {
+    display: grid;
+    grid-template-columns: 1.55fr 1fr;
+    gap: 28px;
+    align-items: start;
+}
+
+/* Form Card */
+.contact-form-card {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+    padding: 38px 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.form-watermark {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    opacity: 0.12;
+    pointer-events: none;
+    transform: rotate(10deg);
+}
+
+.form-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #0084ff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+
+.kicker-line-blue {
+    display: inline-block;
+    width: 32px;
+    height: 2px;
+    background: #0084ff;
+    border-radius: 2px;
+}
+
+.form-title {
+    font-family: var(--font-heading, 'Montserrat', sans-serif);
+    font-size: 1.95rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 8px 0;
+}
+
+.form-subtitle {
+    color: #64748b;
+    font-size: 13.5px;
+    line-height: 1.5;
+    margin: 0 0 24px 0;
+}
+
+.form-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.form-field-group {
+    margin-bottom: 16px;
+}
+
+.form-field-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 6px;
+}
+
+.input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-with-icon .input-icon {
+    position: absolute;
+    left: 14px;
+    color: #94a3b8;
+    font-size: 14px;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-with-icon input,
+.input-with-icon textarea {
+    width: 100%;
+    padding: 11px 14px 11px 40px;
+    font-size: 13.5px;
+    color: #1e293b;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.input-with-icon input::placeholder,
+.input-with-icon textarea::placeholder {
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.input-with-icon input:focus,
+.input-with-icon textarea:focus {
+    background-color: #ffffff;
+    border-color: #0084ff;
+    box-shadow: 0 0 0 3px rgba(0, 132, 255, 0.12);
+}
+
+.input-with-icon.textarea-wrap {
+    align-items: flex-start;
+}
+
+.input-with-icon.textarea-wrap .textarea-icon {
+    top: 14px;
+}
+
+.input-with-icon textarea {
+    resize: vertical;
+    min-height: 110px;
+    line-height: 1.5;
+}
+
+.form-consent-row {
+    margin: 18px 0 22px;
+}
+
+.consent-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: #64748b;
+    cursor: pointer;
+    line-height: 1.45;
+}
+
+.consent-label input[type="checkbox"] {
+    margin-top: 2px;
+    accent-color: #0084ff;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.consent-label a {
+    color: #0084ff;
+    text-decoration: underline;
+}
+
+.submit-inquiry-btn {
+    width: 100%;
+    background: #0076de;
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    padding: 14px 28px;
+    font-size: 13.5px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 14px rgba(0, 118, 222, 0.28);
+}
+
+.submit-inquiry-btn:hover {
+    background: #0060b8;
+    box-shadow: 0 6px 18px rgba(0, 118, 222, 0.38);
+    transform: translateY(-1px);
+}
+
+/* Sidebar Cards */
+.contact-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sidebar-card {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.03);
+    padding: 26px 28px;
+}
+
+/* Card 1: Expert Card */
+.expert-card {
+    position: relative;
+}
+
+.expert-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.expert-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.expert-kicker {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    margin-bottom: 2px;
+}
+
+.expert-title {
+    font-family: var(--font-heading, 'Montserrat', sans-serif);
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+}
+
+.expert-deco-badge {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #dff0fd;
+    color: #0076de;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.expert-desc {
+    font-size: 13.5px;
+    color: #64748b;
+    line-height: 1.55;
+    margin: 0 0 20px 0;
+}
+
+.contact-channels-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.channel-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+}
+
+.channel-item:hover {
+    transform: translateX(3px);
+}
+
+.channel-icon-circle {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0076de;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.channel-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.channel-label {
+    font-size: 11.5px;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.channel-val {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+/* Card 2: Office Hours Card */
+.office-hours-card {
+    padding: 22px 28px;
+}
+
+.hours-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.hours-icon-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #0076de;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.hours-title {
+    font-family: var(--font-heading, 'Montserrat', sans-serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 5px 0;
+}
+
+.hours-time {
+    font-size: 13px;
+    color: #475569;
+    font-weight: 500;
+    margin: 0 0 3px 0;
+    line-height: 1.4;
+}
+
+.hours-sub {
+    font-size: 12px;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Card 3: Map Preview Card */
+.map-preview-card {
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+    height: 165px;
+    border-radius: 16px;
+}
+
+.map-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center right;
+    display: block;
+}
+
+.map-overlay-box {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 62%;
+    background: linear-gradient(90deg, 
+        rgba(10, 31, 60, 0.98) 0%, 
+        rgba(10, 31, 60, 0.92) 75%, 
+        rgba(10, 31, 60, 0.0) 100%);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 12px;
+    z-index: 2;
+}
+
+.map-overlay-title {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.map-overlay-title i {
+    color: #00c0f0;
+    font-size: 16px;
+}
+
+.map-link-btn {
+    background: #0084ff;
+    color: #ffffff;
+    padding: 7px 18px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+.map-link-btn:hover {
+    background: #0060b8;
+    color: #ffffff;
+}
+
+/* =========================================
+   4. TRUST BAR SECTION
+   ========================================= */
+.trust-connect-section {
+    background-color: #f8fafc;
+    padding: 25px 0 60px;
+}
+
+.trust-connect-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.trust-kicker {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #0084ff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.trust-kicker .kicker-line {
+    display: inline-block;
+    width: 28px;
+    height: 2px;
+    background: #0084ff;
+    border-radius: 2px;
+}
+
+.trust-main-heading {
+    font-family: var(--font-heading, 'Montserrat', sans-serif);
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+}
+
+.trust-pills-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.trust-pill-item {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.02);
+}
+
+.trust-pill-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #dff0fd;
+    color: #0076de;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.trust-pill-text {
+    font-size: 13.5px;
+    color: #1e293b;
+    line-height: 1.25;
+}
+
+.trust-pill-text strong {
+    display: block;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN
+   ========================================= */
+@media (max-width: 992px) {
+    .contact-hero-title {
+        font-size: 2.5rem;
+    }
+    .office-cards-row {
+        grid-template-columns: 1fr;
+    }
+    .contact-main-grid {
+        grid-template-columns: 1fr;
+    }
+    .trust-pills-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .form-two-col {
+        grid-template-columns: 1fr;
+    }
+    .trust-pills-grid {
+        grid-template-columns: 1fr;
+    }
+    .contact-form-card {
+        padding: 26px 20px;
+    }
+    .contact-hero-badges {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+}
+</style>
+
+<!-- 1. Hero Banner -->
+<section class="contact-hero-section">
+    <div class="contact-hero-bg"></div>
+    <div class="container contact-hero-container">
+        <div class="contact-hero-content">
+            <div class="contact-hero-kicker">
+                <span>GET IN TOUCH</span>
+                <span class="kicker-line"></span>
+            </div>
+            <h1 class="contact-hero-title">
+                Let's Build<br>
+                Something Great<br>
+                <span class="text-cyan">Together</span>
+            </h1>
+            <p class="contact-hero-desc">
+                Have a project in mind? Our experts are here to help you turn ideas into real solutions. Reach out and we'll get back to you within 24 hours.
+            </p>
+            <div class="contact-hero-badges">
+                <div class="hero-badge-item">
+                    <div class="badge-icon-circle">
+                        <i class="far fa-comment-dots"></i>
+                    </div>
+                    <div class="badge-text">
+                        <strong>Quick</strong>
+                        <span>Response</span>
+                    </div>
+                </div>
+                <div class="hero-badge-item">
+                    <div class="badge-icon-circle">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="badge-text">
+                        <strong>Confidential</strong>
+                        <span>&amp; Secure</span>
+                    </div>
+                </div>
+                <div class="hero-badge-item">
+                    <div class="badge-icon-circle">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <div class="badge-text">
+                        <strong>Talk to</strong>
+                        <span>Real Experts</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 2. Three Office Location Cards -->
+<section class="office-locations-section">
+    <div class="container">
+        <div class="office-cards-row">
+            <!-- Vancouver Headquarters -->
+            <div class="office-location-card">
+                <div class="office-img-wrap">
+                    <img src="/static/images/vancouver-exact.jpg" alt="Vancouver Headquarters">
+                </div>
+                <div class="office-body">
+                    <div class="office-title-row">
+                        <div class="office-icon-box primary">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <h3 class="office-name">Vancouver Headquarters</h3>
+                    </div>
+                    <p class="office-address">
+                        136 W Hastings Street,<br>
+                        Vancouver, BC V6B 1G8<br>
+                        Canada
+                    </p>
+                    <a href="https://maps.google.com/?q=136+W+Hastings+St+Vancouver+BC" target="_blank" rel="noopener noreferrer" class="office-action-btn primary" aria-label="Vancouver Headquarters Map">
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Victoria Office -->
+            <div class="office-location-card">
+                <div class="office-img-wrap">
+                    <img src="/static/images/victoria-exact.jpg" alt="Victoria Office">
+                </div>
+                <div class="office-body">
+                    <div class="office-title-row">
+                        <div class="office-icon-box secondary">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3 class="office-name">Victoria Office</h3>
+                    </div>
+                    <p class="office-address">
+                        300 - 895 Fort Street,<br>
+                        Victoria, BC V8W 1H7<br>
+                        Canada
+                    </p>
+                    <a href="https://maps.google.com/?q=895+Fort+Street+Victoria+BC" target="_blank" rel="noopener noreferrer" class="office-action-btn secondary" aria-label="Victoria Office Map">
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Calgary Office -->
+            <div class="office-location-card">
+                <div class="office-img-wrap">
+                    <img src="/static/images/calgary-exact.jpg" alt="Calgary Office">
+                </div>
+                <div class="office-body">
+                    <div class="office-title-row">
+                        <div class="office-icon-box secondary">
+                            <i class="fas fa-city"></i>
+                        </div>
+                        <h3 class="office-name">Calgary Office</h3>
+                    </div>
+                    <p class="office-address">
+                        300 - 205 5th Avenue SW,<br>
+                        Calgary, AB T2P 2V7<br>
+                        Canada
+                    </p>
+                    <a href="https://maps.google.com/?q=205+5th+Ave+SW+Calgary+AB" target="_blank" rel="noopener noreferrer" class="office-action-btn secondary" aria-label="Calgary Office Map">
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 3. Main Form & Sidebar Section -->
+<section class="contact-main-section">
+    <div class="container">
+        <div class="contact-main-grid">
+            <!-- Left: Contact Form -->
+            <div class="contact-form-card">
+                <!-- Watermark Paper Plane -->
+                <div class="form-watermark">
+                    <svg width="115" height="115" viewBox="0 0 24 24" fill="none" stroke="#0076de" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 2L11 13"></path>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </div>
+
+                <div class="form-kicker">
+                    <span>SEND US A MESSAGE</span>
+                    <span class="kicker-line-blue"></span>
+                </div>
+                <h2 class="form-title">Let's Discuss Your Project</h2>
+                <p class="form-subtitle">Share a few details about your requirements and our team will get back to you shortly with the best way forward.</p>
+
+                <form class="ajax-contact-form" id="contactMainForm">
+                    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
+                    <input type="hidden" name="service" value="Contact Us Inquiry">
+
+                    <div class="form-alert success alert-success-msg" style="display: none; padding: 12px 16px; margin-bottom: 18px; background: #e8f8ec; border: 1px solid #10b981; color: #065f46; border-radius: 8px; font-size: 14px;"></div>
+                    <div class="form-alert error alert-error-msg" style="display: none; padding: 12px 16px; margin-bottom: 18px; background: #fee2e2; border: 1px solid #ef4444; color: #b91c1c; border-radius: 8px; font-size: 14px;"></div>
+
+                    <div class="form-two-col">
+                        <div class="form-field-group">
+                            <label for="contact-name">Your Name *</label>
+                            <div class="input-with-icon">
+                                <span class="input-icon"><i class="far fa-user"></i></span>
+                                <input type="text" name="first_name" id="contact-name" placeholder="e.g. Sarah Jenkins" required>
+                            </div>
+                        </div>
+
+                        <div class="form-field-group">
+                            <label for="contact-email">Business Email *</label>
+                            <div class="input-with-icon">
+                                <span class="input-icon"><i class="far fa-envelope"></i></span>
+                                <input type="email" name="email" id="contact-email" placeholder="s.jenkins@company.ca" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-two-col">
+                        <div class="form-field-group">
+                            <label for="contact-phone">Mobile / Phone Number</label>
+                            <div class="input-with-icon">
+                                <span class="input-icon"><i class="fas fa-phone-alt"></i></span>
+                                <input type="tel" name="phone" id="contact-phone" placeholder="e.g. (604) 555-0199">
+                            </div>
+                        </div>
+
+                        <div class="form-field-group">
+                            <label for="contact-subject">Company / Project Subject</label>
+                            <div class="input-with-icon">
+                                <span class="input-icon"><i class="far fa-building"></i></span>
+                                <input type="text" name="company_name" id="contact-subject" placeholder="e.g. Custom Software Development">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-field-group">
+                        <label for="contact-message">Project Overview or Message *</label>
+                        <div class="input-with-icon textarea-wrap">
+                            <span class="input-icon textarea-icon"><i class="far fa-comment-dots"></i></span>
+                            <textarea name="message" id="contact-message" rows="5" placeholder="Tell us briefly about your current system, challenges, and timeline goals..." required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-consent-row">
+                        <label class="consent-label">
+                            <input type="checkbox" name="gdpr_consent" value="1" required>
+                            <span>I consent to Spot Solutions storing my submitted details according to their <a href="/privacy">Privacy Policy</a>.</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="submit-inquiry-btn">
+                        <span>SEND INQUIRY</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Right: 3 Cards Column -->
+            <div class="contact-sidebar">
+                <!-- Card 1: Direct Access / Talk to Our Experts -->
+                <div class="sidebar-card expert-card">
+                    <div class="expert-card-header">
+                        <div class="expert-header-left">
+                            <div class="expert-header-text">
+                                <span class="expert-kicker">Direct Access</span>
+                                <h3 class="expert-title">Talk to Our Experts</h3>
+                            </div>
+                        </div>
+                        <div class="expert-deco-badge">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                    </div>
+                    <p class="expert-desc">
+                        Prefer a direct conversation? Reach out to us through phone or email. We're happy to discuss your ideas, answer questions and provide guidance.
+                    </p>
+
+                    <div class="contact-channels-list">
+                        <a href="tel:6045514640" class="channel-item">
+                            <div class="channel-icon-circle">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="channel-details">
+                                <span class="channel-label">Call Us Toll-Free</span>
+                                <span class="channel-val">(604) 551-4640</span>
+                            </div>
+                        </a>
+
+                        <a href="mailto:info@spotsolutions.com" class="channel-item">
+                            <div class="channel-icon-circle">
+                                <i class="far fa-envelope"></i>
+                            </div>
+                            <div class="channel-details">
+                                <span class="channel-label">Email Us</span>
+                                <span class="channel-val">info@spotsolutions.com</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 2: Office Hours -->
+                <div class="sidebar-card office-hours-card">
+                    <div class="hours-row">
+                        <div class="hours-icon-circle">
+                            <i class="far fa-clock"></i>
+                        </div>
+                        <div class="hours-info">
+                            <h4 class="hours-title">Office Hours</h4>
+                            <p class="hours-time">Monday – Friday: 8:30 AM – 5:00 PM (PST)</p>
+                            <p class="hours-sub">Emergency SLA support available 24/7 for contracted clients.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Find Us on Map -->
+                <div class="sidebar-card map-preview-card">
+                    <img src="/static/images/vancouver-map.jpg" alt="Vancouver Map" class="map-bg-img">
+                    <div class="map-overlay-box">
+                        <div class="map-overlay-title">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Find Us on Map</span>
+                        </div>
+                        <a href="https://maps.google.com/?q=136+W+Hastings+St+Vancouver+BC" target="_blank" rel="noopener noreferrer" class="map-link-btn">
+                            <span>View on Google Maps</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 4. Trust Badges ("Why Connect with Spot Solutions") -->
+<section class="trust-connect-section">
+    <div class="container">
+        <div class="trust-connect-header">
+            <div class="trust-kicker">
+                <span class="kicker-line"></span>
+                <span>WHY CONNECT WITH SPOT SOLUTIONS</span>
+                <span class="kicker-line"></span>
+            </div>
+            <h2 class="trust-main-heading">More Than a Vendor, A Technology Partner</h2>
+        </div>
+
+        <div class="trust-pills-grid">
+            <div class="trust-pill-item">
+                <div class="trust-pill-icon">
+                    <i class="fab fa-canadian-maple-leaf"></i>
+                </div>
+                <div class="trust-pill-text">
+                    <strong>100% Canadian</strong>
+                    <span>Based Company</span>
+                </div>
+            </div>
+
+            <div class="trust-pill-item">
+                <div class="trust-pill-icon">
+                    <i class="fab fa-microsoft"></i>
+                </div>
+                <div class="trust-pill-text">
+                    <strong>Certified Microsoft</strong>
+                    <span>365 Experts</span>
+                </div>
+            </div>
+
+            <div class="trust-pill-item">
+                <div class="trust-pill-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="trust-pill-text">
+                    <strong>Secure &amp; Confidential</strong>
+                    <span>Consultations</span>
+                </div>
+            </div>
+
+            <div class="trust-pill-item">
+                <div class="trust-pill-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="trust-pill-text">
+                    <strong>Fast Response</strong>
+                    <span>Within 24 Hours</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{template "footer" .}}
